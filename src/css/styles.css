@@ -1,4 +1,4 @@
-:root {
+/* :root {
     --main-color: #E3001B;
     --secondary-color: #00464E;
     --text-color: #242A34;
@@ -19,4 +19,94 @@ button {
 
 button:hover {
     background-color: var(--secondary-color);
-}
+} */
+
+
+/* versie 1 */
+/* .chat-container {
+    width: 300px;
+    margin: auto;
+    background-color: #f4f4f4;
+    border: 1px solid #c1c1c1;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .chat-container .chat-box {
+    height: 300px;
+    overflow-y: scroll;
+    background-color: white;
+    border: 1px solid #ccc;
+    margin-bottom: 8px;
+    padding: 8px;
+  }
+  .chat-container input[type=text] {
+    width: calc(100% - 90px);
+    padding: 8px;
+  }
+  .chat-container button {
+    width: 80px;
+    background-color: #dbdbdb;
+    color: #333;
+    border: none;
+    padding: 10px;
+  } */
+
+  /* versie 2 */
+  body {
+    font-family: "Helvetica Now", Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #242A34;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .chat-interface {
+    width: 100%;
+    max-width: 350px;
+    margin: 2rem auto;
+    border: 1px solid #E3001B;
+    background-color: #FFF;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  }
+  .chat-interface .chat-header {
+    background-color: #00464E;
+    color: #FFFFFF;
+    padding: 1rem;
+    text-align: center;
+  }
+  .chat-interface .chat-header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  .chat-interface .chat-box {
+    height: 300px;
+    overflow-y: auto;
+    padding: 1rem;
+    background-color: #ffffff;
+    border-top: 1px solid #E3001B;
+    border-bottom: 1px solid #E3001B;
+  }
+  .chat-interface .chat-input {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+  }
+  .chat-interface .chat-input input[type=text] {
+    flex-grow: 1;
+    padding: 0.5rem;
+    border: 1px solid #E3001B;
+    margin-right: 1rem;
+  }
+  .chat-interface .chat-input button {
+    padding: 0.5rem 1rem;
+    background-color: #00464E;
+    color: #FFFFFF;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .chat-interface .chat-input button:hover {
+    background-color: #00181b;
+  }
