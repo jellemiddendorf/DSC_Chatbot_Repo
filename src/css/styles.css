@@ -1,0 +1,22 @@
+:root {
+    --main-color: #E3001B;
+    --secondary-color: #00464E;
+    --text-color: #242A34;
+}
+
+body {
+    background-color: white;
+    color: var(--text-color);
+}
+
+button {
+    background-color: var(--main-color);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--secondary-color);
+}
