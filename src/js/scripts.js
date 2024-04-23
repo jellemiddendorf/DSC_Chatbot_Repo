@@ -8,9 +8,12 @@
 //     output.textContent = 'Button clicked!';
 // });
 
-function sendMessage() {
-    const inputField = document.getElementById('user-input');
-    const chatBox = document.getElementById('chat-box');
+function sendMessage(source) {
+    const inputId = source === 'main' ? 'main-user-input' : 'popup-user-input';
+    const chatBoxId = source === 'main' ? 'main-chat-box' : 'popup-chat-box';
+
+    const inputField = document.getElementById(inputId);
+    const chatBox = document.getElementById(chatBoxId);
     const userInput = inputField.value;
     inputField.value = '';
 
@@ -27,13 +30,26 @@ function sendMessage() {
 
 function displayMessageWithHeader(message, sender) {
     const headerElement = document.createElement('div');
-    const messageElement = document.createElement('div');
+    headerElement.className = 'message-header';
     headerElement.textContent = sender === 'user' ? 'User:' : 'Chatbot:';
+
+    const messageElement = document.createElement('div');
+    messageElement.className = 'message ${sender}';
     messageElement.textContent = message;
-    messageElement.className = sender;
-    messageElement.appendChild(headerElement);
-    document.getElementById('chat-box').appendChild(headerElement);
-    document.getElementById('chat-box').appendChild(messageElement);
+
+    // Clone the setup for each chat box
+    const containerMain = document.createElement('div');
+    containerMain.appendChild(headerElement.cloneNode(true));
+    containerMain.appendChild(messageElement.cloneNode(true));
+
+    const containerPopup = document.createElement('div');
+    containerPopup.appendChild(headerElement.cloneNode(true));
+    containerPopup.appendChild(messageElement.cloneNode(true));
+
+    // Append cloned containers to each chat box
+    // Has to be done because appendChild moves the element from one parent to another
+    document.getElementById('main-chat-box').appendChild(containerMain);
+    document.getElementById('popup-chat-box').appendChild(containerPopup);
 }
 
 function displayMessage(message, sender) {
@@ -41,6 +57,17 @@ function displayMessage(message, sender) {
     messageElement.textContent = message;
     messageElement.className = sender;
     document.getElementById('chat-box').appendChild(messageElement);
+}
+
+function togglePopup() {
+    var popup = document.getElementById('popup-chat-interface');
+    if (popup.classList.contains('is-visible')) {
+        popup.classList.remove('is-visible');
+        popup.classList.add('is-hidden');
+    } else {
+        popup.classList.add('is-visible');
+        popup.classList.remove('is-hidden');
+    }
 }
 
 // Example function to fetch weather data
