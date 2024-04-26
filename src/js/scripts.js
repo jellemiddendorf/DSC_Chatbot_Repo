@@ -7,6 +7,11 @@
 //     // Perform some action when the button is clicked
 //     output.textContent = 'Button clicked!';
 // });
+let conversationLog = [];
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('printLogButton').addEventListener('click', printConversationLog);
+});
 
 function sendMessage(source) {
     const inputId = source === 'main' ? 'main-user-input' : 'popup-user-input';
@@ -20,12 +25,44 @@ function sendMessage(source) {
     // Display user input
     displayMessageWithHeader(userInput, 'user');
 
+    // Update conversation log for input
+    updateConversationLog(userInput, null); // null initially for output
+
     // Fetch and display response
     fetchWeather(userInput).then(response => {
         displayMessageWithHeader(response, 'bot');
+        updateConversationLog(null, response); // Update output in conversation log
     }).catch(error => {
+        const errorMessage = 'Failed to fetch data.';
         displayMessageWithHeader('Failed to fetch data.', 'bot');
+        updateConversationLog(null, errorMessage); // Update output in conversation log
     });
+}
+
+function updateConversationLog(question, answer) {
+    if (question) {
+        // If there's a new question, add a new entry to the log.
+        // This entry initially does not have an output.
+        conversationLog.push({
+            "inputs": {"question": question},
+            "outputs": {"output": ""}
+        });
+    }
+    if (answer) {
+        // Once the response is received or generated,
+        // find the last entry in the log (which corresponds to the current question)
+        // and update its output.
+        conversationLog[conversationLog.length - 1].outputs.output = answer;
+    }
+}
+
+function printConversationLog() {
+    if (conversationLog.length > 0) {
+        console.log("Conversation Log:");
+        console.log(JSON.stringify(conversationLog, null, 2));
+    } else {
+        console.log("No conversations to display.");
+    }
 }
 
 function displayMessageWithHeader(message, sender) {
