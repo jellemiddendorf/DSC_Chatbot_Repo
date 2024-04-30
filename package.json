@@ -1,0 +1,22 @@
+{
+  "name": "dsc_chatbot_repo",
+  "version": "1.0.0",
+  "description": "goal:\r /my-web-app\r |-- /src\r |   |-- /assets\r |   |   |-- /images\r |   |   |-- /fonts\r |   |-- /css\r |   |-- /js\r |   |-- /scss\r |   |-- /components\r |   |-- index.html\r |-- /dist (or /build)\r |-- /node_modules\r |-- .gitignore\r |-- package.json\r |-- README.md",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^5.0.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-imagemin": "^9.0.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^5.1.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-uglify": "^3.0.2",
+    "sass": "^1.75.0"
+  }
+}

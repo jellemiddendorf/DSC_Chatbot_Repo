@@ -396,3 +396,9 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# Extra Stuff I added to the gitignore
+dist/
+package-lock.json
+.idea/
+.DS_Store

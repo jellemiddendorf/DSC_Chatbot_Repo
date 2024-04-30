@@ -1,40 +1,42 @@
-<!-- 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Support Chatbot</title>
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-    <h1>Welcome to My Website</h1>
-    <p>This is a basic starting page.</p>
-    <div class="chat-interface">
-        <div class="chat-header">
-            <h1>Chat with Us</h1>
-        </div>
-        <div class="chat-box" id="chat-box">
-             Messages will be appended here 
-        </div>
-        <div class="chat-input">
-            <input type="text" id="user-input" placeholder="Type your message here..." />
-            <button onclick="sendMessage()">Send</button>
-        </div>
-    </div>
-    <script src="js/scripts.js"></script>
-</body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Responsive Chatbot</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.min.css">
 </head>
 <body>
+
+    <div id="header-placeholder"></div>
+
+    <script>
+        // fetch('html/header.html')
+        //     .then(response => response.text())
+        //     .then(html => {
+        //         document.getElementById('header-placeholder').innerHTML = html;
+        //     })
+        //     .catch(error => console.error('Error loading the header:', error));
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Load the header HTML from an external file
+            fetch('html/header.html') // Adjust the path as needed
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('header-placeholder').innerHTML = html;
+                    // Load the CSS after the header is injected to ensure styles apply correctly
+                    const link = document.createElement('link');
+                    link.href = 'css/header-styles.min.css'; // Adjust the path as needed
+                    link.type = 'text/css';
+                    link.rel = 'stylesheet';
+                    document.head.appendChild(link);
+                })
+                .catch(error => console.error('Error loading the header:', error));
+        });
+    </script>
+
+
 
     <button id="printLogButton">Print Conversation Log</button>
 
@@ -66,6 +68,6 @@
     </div>
 </div>
 <button class="popup-toggle" onclick="togglePopup()">Chat</button>
-    <script src="js/scripts.js"></script>
+    <script src="js/scripts.min.js"></script>
 </body>
 </html>
