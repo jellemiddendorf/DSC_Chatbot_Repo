@@ -4,7 +4,8 @@
   "description": "goal:\r /my-web-app\r |-- /src\r |   |-- /assets\r |   |   |-- /images\r |   |   |-- /fonts\r |   |-- /css\r |   |-- /js\r |   |-- /scss\r |   |-- /components\r |   |-- index.html\r |-- /dist (or /build)\r |-- /node_modules\r |-- .gitignore\r |-- package.json\r |-- README.md",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "gulp build"
   },
   "keywords": [],
   "author": "",
