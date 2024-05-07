@@ -7,13 +7,13 @@
 //     // Perform some action when the button is clicked
 //     output.textContent = 'Button clicked!';
 // });
-let conversationLog = [];
+export let conversationLog = [];
 
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('printLogButton').addEventListener('click', printConversationLog);
 });
 
-function sendMessage(source) {
+export function sendMessage(source) {
     const inputId = source === 'main' ? 'main-user-input' : 'popup-user-input';
     const chatBoxId = source === 'main' ? 'main-chat-box' : 'popup-chat-box';
 
@@ -39,7 +39,7 @@ function sendMessage(source) {
     });
 }
 
-function updateConversationLog(question, answer) {
+export function updateConversationLog(question, answer) {
     if (question) {
         // If there's a new question, add a new entry to the log.
         // This entry initially does not have an output.
@@ -56,7 +56,7 @@ function updateConversationLog(question, answer) {
     }
 }
 
-function printConversationLog() {
+export function printConversationLog() {
     if (conversationLog.length > 0) {
         console.log("Conversation Log:");
         console.log(JSON.stringify(conversationLog, null, 2));
@@ -65,7 +65,7 @@ function printConversationLog() {
     }
 }
 
-function displayMessageWithHeader(message, sender) {
+export function displayMessageWithHeader(message, sender) {
     const headerElement = document.createElement('div');
     headerElement.className = 'message-header';
     headerElement.textContent = sender === 'user' ? 'User:' : 'Chatbot:';
@@ -89,15 +89,16 @@ function displayMessageWithHeader(message, sender) {
     document.getElementById('popup-chat-box').appendChild(containerPopup);
 }
 
-function displayMessage(message, sender) {
+export function displayMessage(message, sender) {
     const messageElement = document.createElement('div');
     messageElement.textContent = message;
     messageElement.className = sender;
     document.getElementById('chat-box').appendChild(messageElement);
 }
 
-function togglePopup() {
+export function togglePopup() {
     var popup = document.getElementById('popup-chat-interface');
+    console.log("Click!");
     if (popup.classList.contains('is-visible')) {
         popup.classList.remove('is-visible');
         popup.classList.add('is-hidden');
@@ -107,8 +108,36 @@ function togglePopup() {
     }
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    var button = document.getElementById('popup-toggle');
+    if (button) {
+      button.addEventListener('click', togglePopup);
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var button = document.getElementById('popup-toggle-large');
+    if (button) {
+      button.addEventListener('click', togglePopup);
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var button = document.getElementById('send-message-main');
+    if (button) {
+      button.addEventListener('click', sendMessage.bind(null, "main"));
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var button = document.getElementById('send-message-popup');
+    if (button) {
+      button.addEventListener('click', sendMessage.bind(null, "popup"));
+    }
+  });
+
 // Example function to fetch weather data
-async function fetchWeather(query) {
+export async function fetchWeather(query) {
     const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=f2e9be0466ad4d56b76103541242204&q=${query}`);
     const data = await response.json();
     return `The current temperature in ${data.location.name} is ${data.current.temp_c}°C.`;

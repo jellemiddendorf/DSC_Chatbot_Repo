@@ -3480,48 +3480,48 @@ summary {
     background-color: #d27d20
 }
 
-@font-face {
-    font-family: Helvetica Now Text;
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-    src: url(/build/fonts/HelveticaNowTextLight.4e4886d0.woff) format("woff")
-}
+// @font-face {
+//     font-family: Helvetica Now Text;
+//     font-weight: 300;
+//     font-style: normal;
+//     font-display: swap;
+//     src: url(/build/fonts/HelveticaNowTextLight.4e4886d0.woff) format("woff")
+// }
 
-@font-face {
-    font-family: Helvetica Now Text;
-    font-weight: 300;
-    font-style: italic;
-    font-display: swap;
-    src: url(/build/fonts/HelveticaNowTextLtIt.0161c03e.woff) format("woff")
-}
+// @font-face {
+//     font-family: Helvetica Now Text;
+//     font-weight: 300;
+//     font-style: italic;
+//     font-display: swap;
+//     src: url(/build/fonts/HelveticaNowTextLtIt.0161c03e.woff) format("woff")
+// }
 
-@font-face {
-    font-family: Helvetica Now Text;
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-    src: url(/build/fonts/HelveticaNowText.de7868c6.woff) format("woff")
-}
+// @font-face {
+//     font-family: Helvetica Now Text;
+//     font-weight: 400;
+//     font-style: normal;
+//     font-display: swap;
+//     src: url(/build/fonts/HelveticaNowText.de7868c6.woff) format("woff")
+// }
 
-@font-face {
-    font-family: Helvetica Now Text;
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-    src: url(/build/fonts/HelveticaNowTextMedium.021ed70e.woff) format("woff")
-}
+// @font-face {
+//     font-family: Helvetica Now Text;
+//     font-weight: 500;
+//     font-style: normal;
+//     font-display: swap;
+//     src: url(/build/fonts/HelveticaNowTextMedium.021ed70e.woff) format("woff")
+// }
 
-@font-face {
-    font-family: Helvetica Now Text;
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-    src: url(/build/fonts/HelveticaNowTextBold.1616014e.woff) format("woff")
-}
+// @font-face {
+//     font-family: Helvetica Now Text;
+//     font-weight: 700;
+//     font-style: normal;
+//     font-display: swap;
+//     src: url(/build/fonts/HelveticaNowTextBold.1616014e.woff) format("woff")
+// }
 
 html {
-    font-family: Helvetica Now Text,Arial;
+    font-family: Arial, sans-serif;// Helvetica Now Text,Arial
     font-weight: 300;
     font-size: 14px
 }
@@ -3538,14 +3538,14 @@ html {
     }
 }
 
-@font-face {
-    font-family: zehnder;
-    src: url(/build/fonts/zehnder.82157272.eot);
-    src: url(/build/fonts/zehnder.82157272.eot#iefix) format("embedded-opentype"),url(/build/fonts/zehnder.08eaa72e.woff2) format("woff2"),url(/build/fonts/zehnder.e3f21e7a.ttf) format("truetype"),url(/build/fonts/zehnder.f56e9b8f.woff) format("woff"),url(/build/images/zehnder.3f4e3804.svg#zehnder) format("svg");
-    font-weight: 400;
-    font-style: normal;
-    font-display: block
-}
+// @font-face {
+//     font-family: zehnder;
+//     src: url(/build/fonts/zehnder.82157272.eot);
+//     src: url(/build/fonts/zehnder.82157272.eot#iefix) format("embedded-opentype"),url(/build/fonts/zehnder.08eaa72e.woff2) format("woff2"),url(/build/fonts/zehnder.e3f21e7a.ttf) format("truetype"),url(/build/fonts/zehnder.f56e9b8f.woff) format("woff"),url(/build/images/zehnder.3f4e3804.svg#zehnder) format("svg");
+//     font-weight: 400;
+//     font-style: normal;
+//     font-display: block
+// }
 
 *,:after,:before {
     box-sizing: border-box
@@ -19448,7 +19448,7 @@ body.brand_studio-collection .hero.hero--text-left .inner__image:after {
 
 .gm-style-iw-d>div {
     padding: 28px 20px 30px 18px;
-    font-family: Helvetica Now Text,Arial
+    font-family: Arial, sans-serif;// Helvetica Now Text,Arial
 }
 
 .gm-style-iw-d>div>div {

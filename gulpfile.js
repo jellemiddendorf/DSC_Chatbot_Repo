@@ -5,6 +5,8 @@ const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 //const imagemin = require('gulp-imagemin');
 const sourcemaps = require('gulp-sourcemaps');
+const concat = require('gulp-concat');
+const order = require('gulp-order');
 
 function styles() {
   return gulp.src('src/scss/**/*.scss') // Gets all files ending with .scss in src/scss and children dirs
@@ -24,9 +26,17 @@ function html() {
 }
 
 // Uglify JavaScript
-function scripts() {
+function js() {
     return gulp.src('src/js/**/*.js')
         .pipe(sourcemaps.init())
+        .pipe(order([
+          'src/js/states.js',         // This should come first if it defines 'stateIDs'
+          'src/js/stateMachine.js',   // This depends on 'stateIDs' from 'states.js'
+          'src/js/headerLoader.js',   // Other dependencies if any
+          'src/js/scripts.js',        // Least dependent or independent scripts
+          'src/js/*.js'
+        ], { base: './' }))
+        .pipe(concat('app.js'))
         .pipe(uglify())
         .pipe(rename({ suffix: '.min' }))
         .pipe(sourcemaps.write('./'))
@@ -44,9 +54,9 @@ function scripts() {
 function watch() {
     gulp.watch('src/**/*.html', html);
     gulp.watch('src/scss/**/*.scss', styles);
-    gulp.watch('src/js/**/*.js', scripts);
+    gulp.watch('src/js/**/*.js', js);
     // gulp.watch('src/assets/images/**/*', images);
 }
 
-exports.build = gulp.series(html, styles, scripts); // images
-exports.default = gulp.series(gulp.parallel(html, styles, scripts), watch); // images
+exports.build = gulp.series(html, styles, js); // images
+exports.default = gulp.series(gulp.parallel(html, styles, js), watch); // images

@@ -3,71 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Chatbot</title>
+    <title>DSC Chatbot</title>
     <link rel="stylesheet" href="css/styles.min.css">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet"> -->
 </head>
 <body>
-
     <div id="header-placeholder"></div>
 
-    <script>
-        // fetch('html/header.html')
-        //     .then(response => response.text())
-        //     .then(html => {
-        //         document.getElementById('header-placeholder').innerHTML = html;
-        //     })
-        //     .catch(error => console.error('Error loading the header:', error));
+    <!-- Main Chatbot -->
+    <!-- <div class="chat-interface main-chat-interface">
+        <div class="chat-header"><h1>Chat with Us</h1></div>
+        <div class="chat-box" id="main-chat-box"></div>
+        <div class="chat-input">
+            <input type="text" id="main-user-input" placeholder="Type your message here..." />
+            <button onclick="sendMessage('main')">Send</button>
+        </div>
+    </div> -->
 
+    <!-- Main Chatbot -->
+    <div class="content-container">
+        <!-- Main Chatbot Interface -->
+        <div class="main-content">
+            <div class="chat-interface main-chat-interface">
+                <div class="chat-header"><h1>Chat with Us</h1></div>
+                <div class="chat-box" id="main-chat-box"></div>
+                <div class="chat-input">
+                    <input type="text" id="main-user-input" placeholder="Type your message here..." />
+                    <button id="send-message-main">Send</button>
+                </div>
+            </div>
+        </div>
 
-        document.addEventListener("DOMContentLoaded", function() {
-            // Load the header HTML from an external file
-            fetch('html/header.html') // Adjust the path as needed
-                .then(response => response.text())
-                .then(html => {
-                    document.getElementById('header-placeholder').innerHTML = html;
-                    // Load the CSS after the header is injected to ensure styles apply correctly
-                    const link = document.createElement('link');
-                    link.href = 'css/header-styles.min.css'; // Adjust the path as needed
-                    link.type = 'text/css';
-                    link.rel = 'stylesheet';
-                    document.head.appendChild(link);
-                })
-                .catch(error => console.error('Error loading the header:', error));
-        });
-    </script>
+        <!-- Future Functionality Area -->
+        <div class="future-content">
+            <!-- Content for future functionality will go here -->
+        </div>
+    </div>
 
-
-
+    <!-- Popup Chatbot -->
+    <div class="chat-interface popup-chat-interface" id="popup-chat-interface">
+        <div id="popup-toggle-large" class="chat-header popup-header"><h2>Need Help?</h2></div>
+        <div class="chat-box" id="popup-chat-box"></div>
+        <div class="chat-input">
+            <input type="text" id="popup-user-input" placeholder="Ask us anything..." />
+            <button id="send-message-popup">Send</button>
+        </div>
+    </div>
+    <button id="popup-toggle" class="popup-toggle">Chat</button>
+    
     <button id="printLogButton">Print Conversation Log</button>
 
-<!-- Main Chat Interface -->
-<div class="chat-interface main-chat-interface">
-    <div class="chat-header">
-        <h1>Chat with Us</h1>
-    </div>
-    <div class="chat-box" id="main-chat-box">
-        <!-- Messages will be appended here -->
-    </div>
-    <div class="chat-input">
-        <input type="text" id="main-user-input" placeholder="Type your message here..." />
-        <button onclick="sendMessage('main')">Send</button>
-    </div>
-</div>
-
-<!-- Popup Chat Interface -->
-<div class="chat-interface popup-chat-interface" id="popup-chat-interface">
-    <div class="chat-header popup-header" onclick="togglePopup()">
-        <h2>Need Help?</h2>
-    </div>
-    <div class="chat-box" id="popup-chat-box">
-        <!-- Messages will be appended here -->
-    </div>
-    <div class="chat-input">
-        <input type="text" id="popup-user-input" placeholder="Ask us anything..." />
-        <button onclick="sendMessage('popup')">Send</button>
-    </div>
-</div>
-<button class="popup-toggle" onclick="togglePopup()">Chat</button>
-    <script src="js/scripts.min.js"></script>
+    <!-- <script src="js/scripts.min.js"></script>
+    <script type="module" src="js/headerLoader.min.js"></script> -->
+    <script type="module" src="js/app.min.js"></script>
 </body>
 </html>
