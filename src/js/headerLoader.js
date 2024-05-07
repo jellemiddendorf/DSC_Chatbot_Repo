@@ -1,4 +1,4 @@
-const HeaderLoader = (function() {
+const headerLoader = (function() {
     var headerPlaceholder = document.getElementById('header-placeholder');
 
     function loadHeader() {
@@ -27,7 +27,5 @@ const HeaderLoader = (function() {
     };
 })();
 
-//export default HeaderLoader;
-
 // Initialize the module
-HeaderLoader.init();
+headerLoader.init();
