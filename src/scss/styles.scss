@@ -2,11 +2,75 @@ $primary-color: #00464E; // Dark teal
 $secondary-color: #E3001B; // Red
 $background-color: #f4f4f9;
 $text-color: #242A34; // Dark grey
-$additional-color-1: #336B71;
-$additional-color-2: #59868B;
-$additional-color-3: #7FA2A6;
-$additional-color-4: #B2C7C9;
-$additional-color-5: #E5ECED;
+$negative-text-color: #FFF; // White
+$additional-color-1: #336B71; // Dark teal
+$additional-color-2: #59868B; // Light teal
+$additional-color-3: #7FA2A6; // Light teal
+$additional-color-4: #B2C7C9; // Light teal
+$additional-color-5: #E5ECED; // Light teal
+
+// new styles
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    // box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body{
+    background: $additional-color-5;
+}
+
+.wrapper{
+    position: absolute;
+    right: 30px;
+    bottom: 85px;
+    width: 400px;
+    background: $background-color;
+    border-radius: 15px;
+    box-shadow: 0px 15px 20px rgba(0,0,0,0.1);
+}
+
+.wrapper .head-text{
+    line-height: 60px;
+    color: $negative-text-color;
+    border-radius: 15px 15px 0 0;
+    padding: 0 20px;
+    font-weight: 500;
+    font-size: 20px;
+    background: $secondary-color;
+}
+
+.wrapper .chat-box{
+    padding: 20px;
+    width: 100%;
+}
+
+.chat-box .desc-text{
+    color: $text-color;
+    text-align: left;
+    line-height: 25px;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// old styles
 
 .content-container {
     display: flex;

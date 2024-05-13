@@ -10842,7 +10842,10 @@ body.page__menu--open .page__menu {
     line-height: 26px;
     letter-spacing: -.5px;
     border: none;
-    padding-right: 50px!important
+    padding-right: 50px!important;
+    // added
+    padding: .375rem 1.25rem .4375rem .9375rem;
+    border-radius: 3px;
 }
 
 .search .formfield__wrapper--autocomplete .formfield.focus:not(.disabled),.search .formfield__wrapper--autocomplete .formfield.has-focus:not(.disabled),.search .formfield__wrapper--autocomplete .formfield:focus:not(.disabled),a:focus .search .formfield__wrapper--autocomplete .formfield:not(.disabled),html.no-touchevents .download:hover .search .formfield__wrapper--autocomplete .formfield:not(.disabled),html.no-touchevents .search .formfield__wrapper--autocomplete .formfield.hover:not(.disabled),html.no-touchevents .search .formfield__wrapper--autocomplete .formfield:hover:not(.disabled),html.no-touchevents a:hover .search .formfield__wrapper--autocomplete .formfield:not(.disabled) {
