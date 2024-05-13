@@ -16,15 +16,19 @@
     <div class="wrapper">
         <div class="head-text">Welkom bij Zehnder support Chatbot!</div>
         <div class="chat-box">
-            <div class="desc-text">Accepteer de gebruikersovereenkomst om te beginnen.</div>
+            <div class="desc-text">Door de chatbot van Zehnder te gebruiken, erkent u dat alle informatie die door de chatbot wordt verstrekt uitsluitend voor informatieve doeleinden is en onafhankelijk moet worden geverifieerd. Zehnder is niet aansprakelijk voor eventuele onjuistheden of voor enig verlies dat voortvloeit uit chatbot gebruik.</div>
+            <hr class="horizontal-line-1">
             <form action="#">
                 <div class="field">
-                    <input type="checkbox" id="user-agreement-checkbox">
-                    <label for="user-agreement-checkbox">I agree to the terms and conditions</label>
-                    <span class="user-agreement-text">Please read the <a href="#">terms and conditions</a> before proceeding.</span>
-                    <button id="start-chat-button" disabled>Start Chat</button>
+                    <input type="checkbox" id="user-agreement-checkbox" required>
+                    <label for="user-agreement-checkbox">Ik accepteer de gebruikersovereenkomst en heb de <a href="https://www.international.zehnder-systems.com/en/common/terms-and-conditions">algemene voorwaarden</a> gelezen.</label>
+                    <!-- <span class="user-agreement-text">Lees de <a href="https://www.international.zehnder-systems.com/en/common/terms-and-conditions">algemene voorwaarden</a> voordat u verdergaat.</span>
+                    <button id="start-chat-button" disabled>Start Chat</button> -->
                 </div>
-            </form>"
+                <div class="field">
+                    <button type="submit">Start chat</button>
+                </div>
+            </form>
 
             
             
