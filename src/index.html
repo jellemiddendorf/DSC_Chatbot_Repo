@@ -6,14 +6,73 @@
     <title>DSC Chatbot</title>
     <link rel="stylesheet" href="css/styles.min.css">
     <!-- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet"> -->
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opz,wght,FILL,GRAD@48,400,0,0"> -->
+    <!-- <script src="https://kit.fontawesome.com/e01e9d5090.js" crossorigin="anonymous"></script> -->
+    
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0"/>
+    
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap"> -->
 </head>
 <body>
     <div id="header-placeholder"></div>
+    <button class="chatbot-toggler">
+        <span style="display: block" class="material-symbols-rounded">mode_comment</span>
+        <span class="material-symbols-outlined">close</span>
+    </button>
+    
+    <div class="chatbot">
+        <header>
+            <span class="material-symbols-rounded">mode_comment</span>
+            <h7>Zehnders support Chatbot!</h7>
+            <span class="close-btn material-symbols-outlined">close</span>
+        </header>
+        <ul class="chatbox">
+            <li class="chat incoming">
+                <span class="zehnder-letter">Z</span>
+                <p>Hallo ik ben Zehndy!<br>Hoe kan ik je helpen?</p>
+            </li>
+            <!-- <li class="chat outgoing">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+            </li> -->
+        </ul>
+        <div class="chat-input">
+            <textarea placeholder="Uw vraag..." spellcheck="false" required></textarea>
+            <span id="send-btn" class="material-symbols-rounded">send</span>
+        </div>
+    </div>
+
+
+<!-- 
+    <button class="chatbot-toggler">
+        <span class="material-symbols-outlined">mode_comment</span>
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    <div class="chatbot">
+        <header>
+            <h2>Welkom bij Zehnders support Chatbot!</h2>
+            <span class="close-btn material-symbols-outlined">close</span>
+        </header>
+        <ul class="chatbot">
+            <li class="chat incomming">
+                <span class="material-symbols-outlined">smart_toy</span>
+                <p>Hallo ik ben Zehndy!<br> Een support chatbot van Zehnder. Hoe kan ik je helpen? </p>
+            </li>
+            <li class="chat outgoing">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+            </li>
+        </ul>
+        <div class="chat-input">
+            <textarea placeholder="Uw vraag..." spellcheck="false"></textarea>
+            <span id="send-btn" class="material-symbols-outlined">send</span>
+        </div>
+    </div> -->
 
 
 
-
-    <div class="wrapper">
+    <!-- <div class="wrapper">
         <div class="head-text">Welkom bij Zehnder support Chatbot!</div>
         <div class="chat-box">
             <div class="desc-text">Door de chatbot van Zehnder te gebruiken, erkent u dat alle informatie die door de chatbot wordt verstrekt uitsluitend voor informatieve doeleinden is en onafhankelijk moet worden geverifieerd. Zehnder is niet aansprakelijk voor eventuele onjuistheden of voor enig verlies dat voortvloeit uit chatbot gebruik.</div>
@@ -22,8 +81,8 @@
                 <div class="field">
                     <input type="checkbox" id="user-agreement-checkbox" required>
                     <label for="user-agreement-checkbox">Ik accepteer de gebruikersovereenkomst en heb de <a href="https://www.international.zehnder-systems.com/en/common/terms-and-conditions">algemene voorwaarden</a> gelezen.</label>
-                    <!-- <span class="user-agreement-text">Lees de <a href="https://www.international.zehnder-systems.com/en/common/terms-and-conditions">algemene voorwaarden</a> voordat u verdergaat.</span>
-                    <button id="start-chat-button" disabled>Start Chat</button> -->
+                    <!- - <span class="user-agreement-text">Lees de <a href="https://www.international.zehnder-systems.com/en/common/terms-and-conditions">algemene voorwaarden</a> voordat u verdergaat.</span>
+                    <button id="start-chat-button" disabled>Start Chat</button> - ->
                 </div>
                 <div class="field">
                     <button type="submit">Start chat</button>
@@ -32,16 +91,16 @@
 
             
             
-            <!-- checkbox -->
-            <!-- <div class="chatbot-user-agreement">
+            <!- - checkbox - ->
+            <!- - <div class="chatbot-user-agreement">
                 <input type="checkbox" id="user-agreement-checkbox">
                 <label for="user-agreement-checkbox">I agree to the terms and conditions</label>
                 <span class="user-agreement-text">Please read the <a href="#">terms and conditions</a> before proceeding.</span>
                 <button id="start-chat-button" disabled>Start Chat</button>
-            </div> -->
-            <!-- checkbox -->
+            </div> - ->
+            <!- - checkbox - ->
         </div>
-    </div>
+    </div> -->
 
 
 
@@ -90,8 +149,8 @@
     </div> -->
 
     <!-- Main Chatbot -->
-    <div class="content-container">
-        <!-- Main Chatbot Interface -->
+    <!-- <div class="content-container">
+        <!- - Main Chatbot Interface - ->
         <div class="main-content">
             <div class="chat-interface main-chat-interface">
                 <div class="chat-header"><h1>Chat with Us test</h1></div>
@@ -103,13 +162,13 @@
             </div>
         </div>
 
-        <!-- Future Functionality Area -->
+        <!- - Future Functionality Area - ->
         <div class="future-content">
-            <!-- Content for future functionality will go here -->
+            <!- - Content for future functionality will go here - ->
         </div>
     </div>
 
-    <!-- Popup Chatbot -->
+    <!- - Popup Chatbot - ->
     <div class="chat-interface popup-chat-interface" id="popup-chat-interface">
         <div id="popup-toggle-large" class="chat-header popup-header"><h2>Need Help?</h2></div>
         <div class="chat-box" id="popup-chat-box"></div>
@@ -118,11 +177,11 @@
             <button id="send-message-popup">Send</button>
         </div>
     </div>
-    <button id="popup-toggle" class="popup-toggle">Chat</button>
+    <button id="popup-toggle" class="popup-toggle">Chat</button> - ->
     
     <button id="printLogButton">Print Conversation Log</button>
 
-    <!-- <script src="js/scripts.min.js"></script>
+    <!- - <script src="js/scripts.min.js"></script>
     <script type="module" src="js/headerLoader.min.js"></script> -->
     <script type="module" src="js/app.min.js"></script>
 </body>
