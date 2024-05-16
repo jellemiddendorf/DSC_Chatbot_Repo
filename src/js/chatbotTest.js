@@ -41,7 +41,20 @@ const generateResponse = (chatElement) => {
     }).catch(() => {
         messageElement.classList.add("error");
         messageElement.textContent = "Oops! Something went wrong. Please try again.";
+
+        fetchWeather2(userMessage).then(weatherMessage => {
+            messageElement.textContent = weatherMessage;
+            messageElement.classList.remove("error");
+        });
+        
+
     }).finally(() => chatbox.scrollTo(0, chatbox.scrollHeight));
+}
+
+async function fetchWeather2(query) {
+    const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=f2e9be0466ad4d56b76103541242204&q=${query}`);
+    const data = await response.json();
+    return `The current temperature in ${data.location.name} is ${data.current.temp_c}°C.`;
 }
 
 const handleChat = () => {
