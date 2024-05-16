@@ -199,7 +199,8 @@ header h7 {
 @media (max-width: 490px) {
   .chatbot-toggler {
     right: 20px;
-    bottom: 20px;
+    bottom: 90px;
+    z-index: 999;
   }
   .chatbot {
     right: 0;
