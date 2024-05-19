@@ -1,4 +1,5 @@
 const gulp = require('gulp');
+const babel = require('gulp-babel');
 const sass = require('gulp-sass')(require('sass'));
 const cleanCSS = require('gulp-clean-css');
 const uglify = require('gulp-uglify');
@@ -30,12 +31,15 @@ function js() {
     return gulp.src('src/js/**/*.js')
         .pipe(sourcemaps.init())
         .pipe(order([
+          'src/js/chatbotTest.js',    // This should come first if it defines 'html elements'
           'src/js/states.js',         // This should come first if it defines 'stateIDs'
           'src/js/stateMachine.js',   // This depends on 'stateIDs' from 'states.js'
           'src/js/headerLoader.js',   // Other dependencies if any
           'src/js/scripts.js',        // Least dependent or independent scripts
+          'src/js/mainInit.js',       // This should come last if it depends on all other scripts
           'src/js/*.js'
         ], { base: './' }))
+        .pipe(babel())
         .pipe(concat('app.js'))
         .pipe(uglify())
         .pipe(rename({ suffix: '.min' }))

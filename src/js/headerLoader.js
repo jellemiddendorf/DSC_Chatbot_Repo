@@ -19,13 +19,19 @@ const headerLoader = (function() {
         document.head.appendChild(link);
     }
 
+    function init(){
+        loadHeader();
+        console.log("Header loader initialized.");
+    }
+
     // Public API
     return {
-        init: function() {
-            document.addEventListener("DOMContentLoaded", loadHeader);
-        }
+        // init: function() {
+        //     document.addEventListener("DOMContentLoaded", loadHeader);
+        // }
+        init
     };
 })();
 
 // Initialize the module
-headerLoader.init();
+//headerLoader.init();

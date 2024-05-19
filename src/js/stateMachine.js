@@ -1,32 +1,32 @@
-// import { states, stateIDs } from 'states.js';
-
 const stateMachine = (function() {
-    let currentState = null;
+    let currentState = stateModule.stateIDs.CLOSED;
+    let states = stateModule.states;
 
     function changeState(newStateID) {
-        // Check if the transition is allowed
-        if (states[currentState].transitions.includes(newStateID)) {
-            console.log(`State change is allowed.`);
-            
-            // Exit the current state if there is an exit function
+        console.log(`=========================================`);
+        //console.log(`Attempting to change state from ${currentState} to ${newStateID}`);
+        
+        if (states[currentState] && states[currentState].transitions.includes(newStateID)) {
+            console.log(`State change from ${currentState} to ${newStateID} is allowed.`);
+
             if (states[currentState].exit) {
                 states[currentState].exit();
             }
 
-            // Log the state change
-            console.log(`Transitioning from ${states[currentState].name} to ${states[newStateID].name}`);
-
-            // Set the new state
+            //console.log(`Transitioning from ${states[currentState].name} to ${states[newStateID].name}`);
             currentState = newStateID;
 
-            // Enter the new state if there is an enter function
             if (states[newStateID].enter) {
                 states[newStateID].enter();
             }
-        } 
-        else {
-            console.log(`Transition from ${states[currentState].name} to ${states[newStateID].name} is not allowed.`);
+
+            //return currentState;
+        } else {
+            console.error(`Invalid state transition from ${currentState} to ${newStateID}.`);
+            //return currentState;
         }
+
+        return currentState;
     }
 
     function getCurrentState() {
@@ -34,8 +34,9 @@ const stateMachine = (function() {
     }
 
     function init() {
-        currentState = stateIDs.USER_AGREEMENT;
-        states[currentState].enter();
+        //currentState = stateIDs.CLOSED;
+        stateModule.states[currentState].enter();
+        console.log(`State machine initialized.`);
     }
 
     return {
@@ -46,6 +47,6 @@ const stateMachine = (function() {
 })();
 
 // Initialize the module
-stateMachine.init();
-
-//export default stateMachine;
+//stateMachine.init();
+// Export the stateMachine object
+//window.stateMachine = stateMachine;
