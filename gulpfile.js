@@ -4,11 +4,11 @@ const sass = require('gulp-sass')(require('sass'));
 const cleanCSS = require('gulp-clean-css');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
-//const imagemin = require('gulp-imagemin');
 const sourcemaps = require('gulp-sourcemaps');
 const concat = require('gulp-concat');
 const order = require('gulp-order');
 
+// Process, prefix, and minify CSS files
 function styles() {
   return gulp.src('src/scss/**/*.scss') // Gets all files ending with .scss in src/scss and children dirs
     .pipe(sourcemaps.init())
@@ -21,22 +21,22 @@ function styles() {
     .pipe(gulp.dest('dist/css')) // Outputs the CSS to dist/css
 }
 
+// Copy HTML files from source to distribution folder
 function html() {
   return gulp.src('src/**/*.html')
     .pipe(gulp.dest('dist'));
 }
 
-// Uglify JavaScript
+// Process, transpile, and minify JavaScript files
 function js() {
-    return gulp.src('src/js/**/*.js')
+    return gulp.src('src/js/**/*.js') // Gets all files ending with .js in src/js and children dirs
         .pipe(sourcemaps.init())
         .pipe(order([
-          'src/js/chatbotTest.js',    // This should come first if it defines 'html elements'
-          'src/js/states.js',         // This should come first if it defines 'stateIDs'
+          'src/js/chatbotTest.js',    // defines 'html elements'
+          'src/js/states.js',         // defines 'stateIDs'
           'src/js/stateMachine.js',   // This depends on 'stateIDs' from 'states.js'
-          'src/js/headerLoader.js',   // Other dependencies if any
-          'src/js/scripts.js',        // Least dependent or independent scripts
-          'src/js/mainInit.js',       // This should come last if it depends on all other scripts
+          'src/js/headerLoader.js',   // loads 'header.html'
+          'src/js/mainInit.js',       // Initialization script
           'src/js/*.js'
         ], { base: './' }))
         .pipe(babel())
@@ -47,20 +47,13 @@ function js() {
         .pipe(gulp.dest('dist/js'));
 }
 
-// Optimize images
-// function images() {
-//     return gulp.src('src/assets/images/**/*')
-//         .pipe(imagemin())
-//         .pipe(gulp.dest('dist/assets/images'));
-// }
-
-// Watch files
+// Watch for changes in files to re-run tasks
 function watch() {
     gulp.watch('src/**/*.html', html);
     gulp.watch('src/scss/**/*.scss', styles);
     gulp.watch('src/js/**/*.js', js);
-    // gulp.watch('src/assets/images/**/*', images);
 }
 
-exports.build = gulp.series(html, styles, js); // images
-exports.default = gulp.series(gulp.parallel(html, styles, js), watch); // images
+// Define tasks
+exports.build = gulp.series(html, styles, js);
+exports.default = gulp.series(gulp.parallel(html, styles, js), watch);

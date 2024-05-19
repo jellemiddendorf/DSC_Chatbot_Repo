@@ -1,4 +1,4 @@
-const stateMachine = (function() {
+const stateMachineModule = (function() {
     let currentState = stateModule.stateIDs.CLOSED;
     let states = stateModule.states;
 
@@ -6,24 +6,25 @@ const stateMachine = (function() {
         console.log(`=========================================`);
         //console.log(`Attempting to change state from ${currentState} to ${newStateID}`);
         
+        // Validate if the state transition is allowed
         if (states[currentState] && states[currentState].transitions.includes(newStateID)) {
             console.log(`State change from ${currentState} to ${newStateID} is allowed.`);
 
+            // Exit current state if an exit function exists
             if (states[currentState].exit) {
                 states[currentState].exit();
             }
 
-            //console.log(`Transitioning from ${states[currentState].name} to ${states[newStateID].name}`);
+            // Update the current state
             currentState = newStateID;
+            //console.log(`Transitioning from ${states[currentState].name} to ${states[newStateID].name}`);
 
+            // Enter the new state if an enter function exists
             if (states[newStateID].enter) {
                 states[newStateID].enter();
             }
-
-            //return currentState;
         } else {
             console.error(`Invalid state transition from ${currentState} to ${newStateID}.`);
-            //return currentState;
         }
 
         return currentState;
@@ -33,9 +34,11 @@ const stateMachine = (function() {
         return currentState;
     }
 
+    // Initializes the state machine
     function init() {
-        //currentState = stateIDs.CLOSED;
-        stateModule.states[currentState].enter();
+        if (states[currentState] && states[currentState].enter) {
+            states[currentState].enter();
+        }
         console.log(`State machine initialized.`);
     }
 
@@ -46,7 +49,5 @@ const stateMachine = (function() {
     };
 })();
 
-// Initialize the module
-//stateMachine.init();
 // Export the stateMachine object
 //window.stateMachine = stateMachine;

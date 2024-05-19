@@ -1,6 +1,7 @@
 const headerLoader = (function() {
     var headerPlaceholder = document.getElementById('header-placeholder');
 
+    // Load the HTML content for the header
     function loadHeader() {
         fetch('html/header.html')
             .then(response => response.text())
@@ -11,6 +12,7 @@ const headerLoader = (function() {
             .catch(error => console.error('Error loading the header:', error));
     }
 
+    // Dynamically load CSS for the header
     function loadCSS(href) {
         const link = document.createElement('link');
         link.href = href;
@@ -19,19 +21,13 @@ const headerLoader = (function() {
         document.head.appendChild(link);
     }
 
+    // Initialize the module
     function init(){
         loadHeader();
         console.log("Header loader initialized.");
     }
 
-    // Public API
     return {
-        // init: function() {
-        //     document.addEventListener("DOMContentLoaded", loadHeader);
-        // }
         init
     };
 })();
-
-// Initialize the module
-//headerLoader.init();

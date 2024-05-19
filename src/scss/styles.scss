@@ -1,27 +1,22 @@
+// Primary and Secondary Colors
 $primary-color: #00464E; // Dark teal
 $secondary-color: #E3001B; // Red
 $background-color: #f4f4f9;
 $text-color: #242A34; // Dark grey
 $negative-text-color: #FFF; // White
+$white: #fff;
+
+// Additional Colors
 $additional-color-1: #336B71; // Dark teal
 $additional-color-2: #59868B; // Light teal
 $additional-color-3: #7FA2A6; // Light teal
 $additional-color-4: #B2C7C9; // Light teal
 $additional-color-5: #E5ECED; // Light teal
-$white: #fff;
 
-// newest styles
-
-/* Import Google font - Poppins */
-// @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
-// * {
-//   margin: 0;
-//   padding: 0;
-//   box-sizing: border-box;
-//   font-family: "Poppins", sans-serif;
-// }
-
+// Import Google Font
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+// Base Styles
 *{
     margin: 0;
     padding: 0;
@@ -31,24 +26,28 @@ $white: #fff;
 body {
   background: $background-color !important;
 }
+
+// Zehnder letter icon
 .zehnder-letter{
     font-size: 1.0rem;
     font-weight: 1000;
 }
+
+// Chatbot Toggler Styles
 .chatbot-toggler {
   position: fixed;
   bottom: 30px;
   right: 35px;
-  outline: none;
-  border: none;
   height: 50px;
   width: 50px;
+  border: none;
+  outline: none;
+  background: $secondary-color;
+  border-radius: 50%;
   display: flex;
-  cursor: pointer;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  background: $secondary-color;
+  cursor: pointer;
   transition: all 0.2s ease;
 }
 body.show-chatbot .chatbot-toggler {
@@ -65,6 +64,8 @@ body.show-chatbot .chatbot-toggler span:first-child  {
 body.show-chatbot .chatbot-toggler span:last-child {
   opacity: 1;
 }
+
+// Main Chatbot Styles
 .chatbot {
   position: fixed;
   right: 35px;
@@ -77,8 +78,7 @@ body.show-chatbot .chatbot-toggler span:last-child {
   pointer-events: none;
   transform: scale(0.5);
   transform-origin: bottom right;
-  box-shadow: 0 0 128px 0 rgba(0,0,0,0.1),
-              0 32px 64px -48px rgba(0,0,0,0.5);
+  box-shadow: 0 0 128px 0 rgba(0,0,0,0.1), 0 32px 64px -48px rgba(0,0,0,0.5);
   transition: all 0.1s ease;
 }
 body.show-chatbot .chatbot {
@@ -86,27 +86,29 @@ body.show-chatbot .chatbot {
   pointer-events: auto;
   transform: scale(1);
 }
+
+// Chatbot Header Styles
 .chatbot header {
   padding: 16px 0;
+  color: $white;
   position: relative;
   text-align: center;
-  color: $white;
   background: $secondary-color;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 .chatbot header span {
   position: absolute;
-//   right: 15px;
   left: 15px;
   top: 50%; 
-//   display: none;
   cursor: pointer;
   transform: translateY(-50%);
 }
 header h7 {
   font-size: 1.4rem;
-  font-weight: 600; //500
+  font-weight: 600;
 }
+
+// Chatbot Styles
 .chatbot .chatbox {
   overflow-y: auto;
   height: 460px; // 510px
@@ -163,6 +165,8 @@ header h7 {
   color: $text-color;
   background: $additional-color-5;
 }
+
+// Chat Input Styles
 .chatbot .chat-input {
   display: flex;
   gap: 5px;
@@ -197,11 +201,11 @@ header h7 {
   visibility: visible;
 }
 
+// Responsive Styles for Mobile Devices
 @media (max-width: 490px) {
   .user-agreement {
     padding: 100px 10px !important;
   }
-
   .chatbot-toggler {
     right: 20px;
     bottom: 90px;
@@ -226,7 +230,7 @@ header h7 {
   }
 }
 
-// user agreement
+// User Agreement Styles
 .user-agreement {
   position: absolute;
   top: 0;
@@ -257,260 +261,4 @@ header h7 {
   color: $negative-text-color;
   border: none;
   cursor: pointer;
-}
-
-
-
-
-// // new styles
-// @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-// *{
-//     margin: 0;
-//     padding: 0;
-//     box-sizing: border-box;
-//     font-family: 'Inter', sans-serif;
-// }
-
-// body{
-//     background: $additional-color-5;
-// }
-
-// .wrapper{
-//     position: absolute;
-//     right: 30px;
-//     bottom: 85px;
-//     width: 400px;
-//     background: $background-color;
-//     border-radius: 15px;
-//     box-shadow: 0px 15px 20px rgba(0,0,0,0.1);
-// }
-
-// .wrapper .head-text{
-//     line-height: 60px;
-//     color: $negative-text-color;
-//     border-radius: 15px 15px 0 0;
-//     padding: 0 20px;
-//     font-weight: 500;
-//     font-size: 20px;
-//     background: $secondary-color;
-// }
-
-// .wrapper .chat-box{
-//     padding: 20px;
-//     width: 100%;
-// }
-
-// .chat-box .desc-text{
-//     color: $text-color;
-//     text-align: left;
-//     line-height: 25px;
-//     font-size: 14px;
-//     font-weight: 400;
-// }
-
-// .horizontal-line-1{
-//     width: 100%;
-//     height: 1px;
-//     background: $additional-color-4;
-//     margin: 10px 0;
-// }
-
-// .chat-box form{
-//     padding: 10pcx 15px;
-//     margin: 20px 0;
-//     border-radius: 25px;
-//     border: 1px solid $additional-color-4;
-// }
-// // weird stuff
-// .chat-box form .field{
-//     height: 50px;
-//     width: 100%;
-//     margin: 20px;
-// }
-// .chat-box form .field:last-child{
-//     margin-bottom: 15px;
-// }
-// form .field input,
-// form .field button,
-// form .field textarea{
-//     width: 100%;
-//     height: 100%;
-//     padding-left: 20px;
-//     border: 1px solid $additional-color-4;
-//     outline: none;
-//     border-radius: 25px;
-//     font-size: 16px;
-//     transition: all 0.3s ease;
-// }
-// form .field [type = 'checkbox']{
-//     width: auto;
-//     height: auto;
-// }
-
-// form .field input:focus,
-// form .field textarea:focus{
-//     border-color: $primary-color;
-// }
-// form .field input::placeholder,
-// form .field textarea::placeholder{
-//     color: $additional-color-4;
-//     transition: all 0.3s ease;
-// }
-// form .field input:focus::placeholder,
-// form .field textarea:focus::placeholder{
-//     color: $text-color;
-// }
-// .chat-box .textarea{
-//     height: 70px;
-//     width: 100%;
-// }
-// .chat-box form .field textarea{
-//     height: 100%;
-//     border-radius: 50px;
-//     resize: none;
-//     padding: 15px 20px;
-//     font-size: 16px;
-// }
-// .chat-box form .field button{
-//     border: none;
-//     outline: none;
-//     cursor: pointer;
-//     color: $negative-text-color;
-//     font-size: 18px;
-//     font-weight: 500;
-//     background: $secondary-color;
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// old styles
-
-.content-container {
-    display: flex;
-    height: calc(100vh - 50px); // Adjust height based on your header's height
-    @media (max-width: 768px) {
-        flex-direction: column; // Stack content on smaller screens
-    }
-    margin-top: 121px; // Push content to the top of the screen
-}
-
-.main-content, .future-content {
-    flex: 1;
-    height: 100%;
-}
-
-.main-content {
-    background-color: $background-color; // Optional: Set background color for chat area
-}
-
-.future-content {
-    background-color: $additional-color-5; // For visual distinction
-    color: white; // Ensure text is visible
-}
-
-.main-chat-interface, .popup-chat-interface {
-    background-color: #FFF;
-    border: 10px solid $additional-color-4;
-    border-radius: 5% 5% 0 0;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    position: relative;
-    margin: 50px 100px 50px 100px;
-    .chat-header {
-        //position: relative; /* Add this */
-        // border: 2px solid #000;
-        // border-radius: 15%;
-        
-        // width: calc(100% - 20px); // Subtract double the border width
-        // box-sizing: border-box; // Ensures padding is included in width calculation
-        // border-radius: 5% 5% 0 0; // Match parent's top border-radius
-
-        background-color: $primary-color;
-        color: #FFF;
-        padding: 10px;
-        text-align: center;
-        h1, h7 {
-            margin: 0;
-            color: #fff;
-        }
-    }
-    .chat-box {
-        height: 300px;
-        overflow-y: auto;
-        padding: 10px;
-        background-color: $additional-color-5;
-        border-top: 1px solid $secondary-color;
-    }
-    .chat-input {
-        padding: 10px;
-        display: flex;
-        input[type="text"] {
-            flex-grow: 1;
-            padding: 8px;
-            border: 1px solid $secondary-color;
-        }
-        button {
-            padding: 8px 16px;
-            background-color: $primary-color;
-            color: #FFF;
-            border: none;
-            cursor: pointer;
-        }
-    }
-}
-
-.popup-chat-interface {
-    width: 90%;
-    max-width: 300px;
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    transform: translateY(100%);
-    transition: transform 0.3s ease-in-out;
-    display: none; // Make sure this is still hidden initially
-    .popup-header {
-        cursor: pointer;
-    }
-}
-
-.popup-toggle {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    background-color: $primary-color;
-    color: #FFF;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 20px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-}
-
-@media (min-width: 768px) {
-    .popup-chat-interface {
-        display: block; // Ensures the popup is always visible on larger screens
-    }
-    .popup-toggle {
-        display: none; // Hide the toggle button on larger screens
-    }
-}
-
-// JavaScript controlled styles for toggling visibility
-.is-visible {
-    transform: translateY(0); // Moves the popup into view
-}
-
-.is-hidden {
-    transform: translateY(100%); // Hides the popup off-screen
 }
