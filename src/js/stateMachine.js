@@ -4,7 +4,7 @@ const stateMachineModule = (function() {
 
     function changeState(newStateID) {
         console.log(`=========================================`);
-        //console.log(`Attempting to change state from ${currentState} to ${newStateID}`);
+        console.log(`Attempting to change state from ${currentState} to ${newStateID}`);
         
         // Validate if the state transition is allowed
         if (states[currentState] && states[currentState].transitions.includes(newStateID)) {
@@ -17,7 +17,7 @@ const stateMachineModule = (function() {
 
             // Update the current state
             currentState = newStateID;
-            //console.log(`Transitioning from ${states[currentState].name} to ${states[newStateID].name}`);
+            console.log(`Transitioning from ${states[currentState].name} to ${states[newStateID].name}`);
 
             // Enter the new state if an enter function exists
             if (states[newStateID].enter) {
