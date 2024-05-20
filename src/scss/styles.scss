@@ -248,12 +248,10 @@ header h7 {
   font-size: 14px;
   font-weight: 400;
 }
-
 .user-agreement p {
   color: $negative-text-color;
   margin-bottom: 10px;
 }
-
 .agree-button {
   margin-top: 10px;
   padding: 5px 10px;
@@ -261,4 +259,15 @@ header h7 {
   color: $negative-text-color;
   border: none;
   cursor: pointer;
+}
+// Checkbox not checked animation
+@keyframes horizontal-shaking {
+  0% { transform: translateX(0) }
+  25% { transform: translateX(5px) }
+  50% { transform: translateX(-5px) }
+  75% { transform: translateX(5px) }
+  100% { transform: translateX(0) }
+ }
+.shake {
+  animation: horizontal-shaking 0.5s;
 }

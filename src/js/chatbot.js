@@ -9,22 +9,22 @@ const ChatbotModule = (function() {
 
     let stateIDs, changeState;
 
-    let pendingUserMessage = null;  // Stores the last user input awaiting response
-    let pendingResponse = null;  // Stores the last chatbot response to be logged
-    
+    let pendingUserMessage = null; // Stores the last user input awaiting response
+    let pendingResponse = null; // Stores the last chatbot response to be logged
+
     // Initializes the module and registers event listeners
     function init(stateIDsRef, changeStateRef) {
         stateIDs = stateIDsRef;
         changeState = changeStateRef;
         initListeners();
-        displayStoredMessages();  // Load and display messages on startup
+        displayStoredMessages(); // Load and display messages on startup
         console.log("Chatbot module initialized.");
     }
 
     // Sets up user interaction handlers for chat functionality
     function initListeners() {
         chatInput.addEventListener("input", () => {
-            chatInput.style.height = 'auto';
+            chatInput.style.height = "auto";
             chatInput.style.height = `${chatInput.scrollHeight}px`;
         });
 
@@ -73,7 +73,7 @@ const ChatbotModule = (function() {
             },
             body: JSON.stringify({
                 model: "gpt-3.5-turbo",
-                messages: [{role: "user", content: userMessage}],
+                messages: [{role: "user", content: userMessage}]
             })
         };
 
@@ -124,9 +124,9 @@ const ChatbotModule = (function() {
                 outputs: {
                     chat_output: pendingResponse
                 }
-            }
+            };
             updateChatHistory(newMessage);
-            
+
             // Reset the pending messages
             pendingUserMessage = null;
             pendingResponse = null;
@@ -135,8 +135,8 @@ const ChatbotModule = (function() {
 
     // Fetches the chat history from cookies
     function getChatHistory() {
-        const historyCookie = document.cookie.split('; ').find(row => row.startsWith('chatHistory='));
-        return historyCookie ? JSON.parse(decodeURIComponent(historyCookie.split('=')[1])) : [];
+        const historyCookie = document.cookie.split("; ").find(row => row.startsWith("chatHistory="));
+        return historyCookie ? JSON.parse(decodeURIComponent(historyCookie.split("=")[1])) : [];
     }
 
     // Updates the chat history in cookies

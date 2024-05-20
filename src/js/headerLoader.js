@@ -1,23 +1,23 @@
 const headerLoader = (function() {
-    var headerPlaceholder = document.getElementById('header-placeholder');
+    var headerPlaceholder = document.getElementById("header-placeholder");
 
     // Load the HTML content for the header
     function loadHeader() {
-        fetch('html/header.html')
+        fetch("html/header.html")
             .then(response => response.text())
             .then(html => {
                 headerPlaceholder.innerHTML = html;
-                loadCSS('css/header-styles.min.css');
+                loadCSS("css/header-styles.min.css");
             })
-            .catch(error => console.error('Error loading the header:', error));
+            .catch(error => console.error("Error loading the header:", error));
     }
 
     // Dynamically load CSS for the header
     function loadCSS(href) {
-        const link = document.createElement('link');
+        const link = document.createElement("link");
         link.href = href;
-        link.type = 'text/css';
-        link.rel = 'stylesheet';
+        link.type = "text/css";
+        link.rel = "stylesheet";
         document.head.appendChild(link);
     }
 

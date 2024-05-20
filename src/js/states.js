@@ -1,11 +1,11 @@
 const stateModule = (function() {
     const stateIDs = {
-        CLOSED: 'closed',
-        OPEN: 'open',
-        USER_AGREEMENT: 'userAgreement',
-        AWAITING_CHATBOT_RESPONSE: 'awaitingChatbotResponse',
-        CHATBOT_RESPONDING: 'chatbotResponding',
-        IDLE: 'idle',
+        CLOSED: "closed",
+        OPEN: "open",
+        USER_AGREEMENT: "userAgreement",
+        AWAITING_CHATBOT_RESPONSE: "awaitingChatbotResponse",
+        CHATBOT_RESPONDING: "chatbotResponding",
+        IDLE: "idle"
     };
 
     let idleTimeout;
@@ -97,22 +97,29 @@ const stateModule = (function() {
 
     function userHasAcceptedAgreement() {
         const cookieValue = document.cookie
-            .split('; ')
-            .find(row => row.startsWith('userAgreementAccepted='))
-            ?.split('=')[1];
-        return cookieValue === 'true';
+            .split("; ")
+            .find(row => row.startsWith("userAgreementAccepted="))
+            ?.split("=")[1];
+        return cookieValue === "true";
     }
 
     function handleAgreement() {
-        const isChecked = document.getElementById('agree-checkbox').checked;
+        var chatbot = document.querySelector(".chatbot");
+        const isChecked = document.getElementById("agree-checkbox").checked;
+
         if (isChecked) {
             const expiryDate = new Date();
             expiryDate.setMinutes(expiryDate.getMinutes() + 30);
             document.cookie = `userAgreementAccepted=true; expires=${expiryDate.toUTCString()}; path=/; secure; SameSite=Lax`;
-    
+
             stateMachineModule.changeState(stateIDs.OPEN);
         } else {
-            alert('Accepteer de gebruikersovereenkomst om verder te gaan.');
+            chatbot.classList.add("shake");
+
+            // Remove the class after the animation completes so we can add it later again.
+            chatbot.addEventListener("animationend", function() {
+                chatbot.classList.remove("shake");
+            }, { once: true });
         }
     }
 
@@ -131,13 +138,13 @@ const stateModule = (function() {
     }
 
     function enableChatInterface() {
-        document.querySelector('.chat-input textarea').disabled = false;
-        document.querySelector('#send-btn').disabled = false;
+        document.querySelector(".chat-input textarea").disabled = false;
+        document.querySelector("#send-btn").disabled = false;
     }
 
     function disableChatInterface() {
-        document.querySelector('.chat-input textarea').disabled = true;
-        document.querySelector('#send-btn').disabled = true;
+        document.querySelector(".chat-input textarea").disabled = true;
+        document.querySelector("#send-btn").disabled = true;
     }
 
     function evaluateUserAgreement() {
@@ -151,14 +158,14 @@ const stateModule = (function() {
 
     function showUserAgreement() {
         disableChatInterface();
-        document.querySelector('.user-agreement').style.display = 'block';
-        document.querySelector('.agree-button').addEventListener('click', handleAgreement);
+        document.querySelector(".user-agreement").style.display = "block";
+        document.querySelector(".agree-button").addEventListener("click", handleAgreement);
     }
 
     function hideUserAgreement() {
         enableChatInterface();
-        document.querySelector('.user-agreement').style.display = 'none';
-        document.querySelector('.agree-button').removeEventListener('click', handleAgreement);
+        document.querySelector(".user-agreement").style.display = "none";
+        document.querySelector(".agree-button").removeEventListener("click", handleAgreement);
     }
 
     function init() {

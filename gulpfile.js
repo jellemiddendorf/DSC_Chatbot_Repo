@@ -8,6 +8,8 @@ const sourcemaps = require('gulp-sourcemaps');
 const concat = require('gulp-concat');
 const order = require('gulp-order');
 
+const eslint = require('gulp-eslint');
+
 // Process, prefix, and minify CSS files
 function styles() {
   return gulp.src('src/scss/**/*.scss') // Gets all files ending with .scss in src/scss and children dirs
@@ -26,6 +28,15 @@ function html() {
   return gulp.src('src/**/*.html')
     .pipe(gulp.dest('dist'));
 }
+
+// ESLint task
+function lint() {
+  return gulp.src(['src/js/**/*.js'])
+      .pipe(eslint())
+      .pipe(eslint.format())
+      .pipe(eslint.failAfterError());
+}
+
 
 // Process, transpile, and minify JavaScript files
 function js() {
@@ -49,11 +60,11 @@ function js() {
 
 // Watch for changes in files to re-run tasks
 function watch() {
-    gulp.watch('src/**/*.html', html);
-    gulp.watch('src/scss/**/*.scss', styles);
-    gulp.watch('src/js/**/*.js', js);
+  gulp.watch('src/scss/**/*.scss', styles);
+  gulp.watch('src/**/*.html', html);
+  gulp.watch('src/js/**/*.js', gulp.series(lint, js));
 }
 
 // Define tasks
-exports.build = gulp.series(html, styles, js);
-exports.default = gulp.series(gulp.parallel(html, styles, js), watch);
+exports.build = gulp.series(lint, html, styles, js);
+exports.default = gulp.series(gulp.parallel(lint, html, styles, js), watch);
