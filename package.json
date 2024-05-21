@@ -4,7 +4,7 @@
   "description": "goal:\r /my-web-app\r |-- /src\r |   |-- /assets\r |   |   |-- /images\r |   |   |-- /fonts\r |   |-- /css\r |   |-- /js\r |   |-- /scss\r |   |-- /components\r |   |-- index.html\r |-- /dist (or /build)\r |-- /node_modules\r |-- .gitignore\r |-- package.json\r |-- README.md",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jasmine",
     "build": "gulp build"
   },
   "keywords": [],
@@ -30,6 +30,9 @@
     "gulp-sass": "^5.1.0",
     "gulp-sourcemaps": "^3.0.0",
     "gulp-uglify": "^3.0.2",
+    "jasmine": "^5.1.0",
+    "jest": "^29.7.0",
+    "jsdom": "^24.0.0",
     "sass": "^1.75.0"
   }
 }
