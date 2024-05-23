@@ -3,12 +3,10 @@ const ChatbotModule = (function() {
     const chatbox = document.querySelector(".chatbox");
     const chatInput = document.querySelector(".chat-input textarea");
     const sendChatBtn = document.querySelector(".chat-input span");
+
     let userMessage = null;
-    const API_KEY = "PASTE-YOUR-API-KEY"; // Placeholder for the REST API key
     const inputInitHeight = chatInput.scrollHeight;
-
     let stateIDs, changeState;
-
     let pendingUserMessage = null; // Stores the last user input awaiting response
     let pendingResponse = null; // Stores the last chatbot response to be logged
 
@@ -63,48 +61,81 @@ const ChatbotModule = (function() {
 
     // Generates a response from the chatbot
     function generateResponse(chatElement) {
-        const API_URL = "https://api.openai.com/v1/chat/completions";
+        const API_URL = "https://jmi-dsc-chatbot-function-app.azurewebsites.net/api/JMI-DSC-Chatbot-HttpTrigger1";
         const messageElement = chatElement.querySelector("p");
-        const requestOptions = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${API_KEY}`
-            },
-            body: JSON.stringify({
-                model: "gpt-3.5-turbo",
-                messages: [{role: "user", content: userMessage}]
-            })
+        let chatHistory = getChatHistory(); // Retrieve existing chat history
+
+        const currentMessage = {
+            role: "user",
+            content: userMessage
         };
 
-        fetch(API_URL, requestOptions)
-        .then(res => res.json())
+        // Create a temporary updated history with the current message
+        let updatedHistory = [...chatHistory, currentMessage];
+
+        const data = {
+            prompt: userMessage,
+            messages: updatedHistory
+        };
+
+                    // messages: [ // Contextual conversation if needed
+            //     {
+            //         "role": "user",
+            //         "content": "Hello"
+            //     },
+            //     {
+            //         "role": "assistant",
+            //         "content": "Hi, I am the Zehnder chatbot. How can I assist you today?"
+            //     },
+            //     {
+            //         "role": "user",
+            //         "content": userMessage
+            //     }
+            // ]
+
+        console.log("Sending data to Azure Function:", JSON.stringify(data)); // Log the data being sent
+
+        fetch(API_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+        .then(res => {
+            console.log("Received raw response:", res); // Log raw response
+            if (!res.ok) {
+                throw new Error("Network response was not ok: " + res.statusText);
+            }
+            return res.json();
+        })
         .then(data => {
-            const responseMessage = data.choices[0].message.content.trim();
+            console.log("Parsed response data:", data); // Log parsed data
+            const responseMessage = data.response; // Assuming the response is directly the message
             displayResponse(responseMessage);
 
+            // Remove or update the "Nadenken..." message directly here
+            chatElement.remove(); // This removes the placeholder 'Nadenken...' chat element
+
+            //pendingResponse = responseMessage; // Store the response
+            logChatMessage(userMessage, responseMessage); // Log both input and response
+
             pendingResponse = responseMessage; // Store the response
-            logChatMessage(); // Log both input and response
-
             changeState(stateIDs.CHATBOT_RESPONDING);
-        }).catch(() => {
+        })
+        .catch((error) => {
+            console.error("Error fetching data:", error); // Log any errors
+            const errorMsg = "Oeps! Er is iets fout gegaan. Probeer het opnieuw.";
+
             messageElement.classList.add("error");
-            messageElement.textContent = "Oeps! Er is iets fout gegaan. Probeer het opnieuw.";
+            messageElement.textContent = errorMsg;
 
-            // pendingResponse = "Oeps! Er is iets fout gegaan. Probeer het opnieuw."; // Store error message
-            // logChatMessage(); // Log the input with error message
-
-            fetchWeather2(userMessage).then(weatherMessage => {
-                messageElement.textContent = weatherMessage;
-                messageElement.classList.remove("error");
-
-                // Log the error or alternative response
-                pendingResponse = weatherMessage; // Store the response
-                logChatMessage(); // Log both input and response
-            });
+            pendingResponse = errorMsg; // Store error message
+            logChatMessage(userMessage, errorMsg); // Log the input with error message
 
             changeState(stateIDs.CHATBOT_RESPONDING);
-        }).finally(() => chatbox.scrollTo(0, chatbox.scrollHeight));
+        })
+        .finally(() => chatbox.scrollTo(0, chatbox.scrollHeight));
     }
 
     // Displays chatbot response in the chatbox
@@ -114,66 +145,123 @@ const ChatbotModule = (function() {
         chatbox.scrollTo(0, chatbox.scrollHeight);
     }
 
-    // Log the conversation after both input and response are available
-    function logChatMessage() {
-        if (pendingUserMessage && pendingResponse) {
-            const newMessage = {
-                inputs: {
-                    chat_input: pendingUserMessage
-                },
-                outputs: {
-                    chat_output: pendingResponse
-                }
-            };
-            updateChatHistory(newMessage);
+    function logChatMessage(userInput, chatbotResponse) {
+        let chatHistory = getChatHistory(); // Retrieve existing chat history
 
-            // Reset the pending messages
-            pendingUserMessage = null;
-            pendingResponse = null;
-        }
+        // Add user message
+        chatHistory.push({
+            role: "user",
+            content: userInput
+        });
+
+        // Add chatbot response
+        chatHistory.push({
+            role: "assistant",
+            content: chatbotResponse
+        });
+
+        updateChatHistory(chatHistory); // Store updated history
     }
+
+    // Log the conversation after both input and response are available
+    // function logChatMessage() {
+    //     if (pendingUserMessage && pendingResponse) {
+    //         const newMessage = {
+    //             inputs: {
+    //                 chat_input: pendingUserMessage
+    //             },
+    //             outputs: {
+    //                 chat_output: pendingResponse
+    //             }
+    //         };
+    //         updateChatHistory(newMessage);
+
+    //         // Reset the pending messages
+    //         pendingUserMessage = null;
+    //         pendingResponse = null;
+    //     }
+    // }
 
     // Fetches the chat history from cookies
     function getChatHistory() {
         const historyCookie = document.cookie.split("; ").find(row => row.startsWith("chatHistory="));
         return historyCookie ? JSON.parse(decodeURIComponent(historyCookie.split("=")[1])) : [];
+
+        // if (historyCookie) {
+        //     return JSON.parse(decodeURIComponent(historyCookie.split("=")[1]));
+        // }
+
+        // return [
+        //     {
+        //         "role": "assistant",
+        //         "content": "Hallo ik ben Zehndy! Hoe kan ik je helpen?"
+        //     }
+        // ];
     }
 
-    // Updates the chat history in cookies
-    function updateChatHistory(newMessage) {
-        const chatHistory = getChatHistory();
-        chatHistory.push(newMessage);
+    function updateChatHistory(chatHistory) {
         const expiryDate = new Date();
         expiryDate.setMinutes(expiryDate.getMinutes() + 30); // Set expiration
         document.cookie = `chatHistory=${encodeURIComponent(JSON.stringify(chatHistory))}; expires=${expiryDate.toUTCString()}; path=/; secure; SameSite=Lax`;
     }
 
+    // Updates the chat history in cookies
+    // function updateChatHistory(newMessage) {
+    //     const chatHistory = getChatHistory();
+    //     chatHistory.push(newMessage);
+    //     const expiryDate = new Date();
+    //     expiryDate.setMinutes(expiryDate.getMinutes() + 30); // Set expiration
+    //     document.cookie = `chatHistory=${encodeURIComponent(JSON.stringify(chatHistory))}; expires=${expiryDate.toUTCString()}; path=/; secure; SameSite=Lax`;
+    // }
+
+    // // Displays stored messages from cookies on page load
+    // function displayStoredMessages() {
+    //     const chatHistory = getChatHistory();
+    //     chatHistory.forEach(message => {
+    //         // Display user's message
+    //         const userChatLi = createChatLi(message.inputs.chat_input, "outgoing");
+    //         chatbox.appendChild(userChatLi);
+
+    //         // Check if there's a response and display it
+    //         if (message.outputs.chat_output) {
+    //             const responseChatLi = createChatLi(message.outputs.chat_output, "incoming");
+    //             chatbox.appendChild(responseChatLi);
+    //         }
+    //     });
+    //     chatbox.scrollTo(0, chatbox.scrollHeight);
+    // }
+
     // Displays stored messages from cookies on page load
     function displayStoredMessages() {
         const chatHistory = getChatHistory();
         chatHistory.forEach(message => {
-            // Display user's message
-            const userChatLi = createChatLi(message.inputs.chat_input, "outgoing");
-            chatbox.appendChild(userChatLi);
-
-            // Check if there's a response and display it
-            if (message.outputs.chat_output) {
-                const responseChatLi = createChatLi(message.outputs.chat_output, "incoming");
-                chatbox.appendChild(responseChatLi);
-            }
+            const className = message.role === "user" ? "outgoing" : "incoming";
+            const chatLi = createChatLi(message.content, className);
+            chatbox.appendChild(chatLi);
         });
         chatbox.scrollTo(0, chatbox.scrollHeight);
     }
 
+
+    // // Create chat list items
+    // function createChatLi(message, className) {
+    //     const chatLi = document.createElement("li");
+    //     chatLi.classList.add("chat", className);
+    //     let chatContent = className === "outgoing" ? `<p></p>` : `<span class="zehnder-letter">Z</span><p></p>`;
+    //     chatLi.innerHTML = chatContent;
+    //     chatLi.querySelector("p").textContent = message;
+    //     return chatLi;
+    // }
+
     // Create chat list items
-    function createChatLi(message, className) {
+    function createChatLi(messageContent, className) {
         const chatLi = document.createElement("li");
         chatLi.classList.add("chat", className);
-        let chatContent = className === "outgoing" ? `<p></p>` : `<span class="zehnder-letter">Z</span><p></p>`;
+        let chatContent = className === "outgoing" ? `<p>${messageContent}</p>` : `<span class="zehnder-letter">Z</span><p>${messageContent}</p>`;
         chatLi.innerHTML = chatContent;
-        chatLi.querySelector("p").textContent = message;
         return chatLi;
     }
+
 
     // Fetches weather data from the API
     async function fetchWeather2(query) {
