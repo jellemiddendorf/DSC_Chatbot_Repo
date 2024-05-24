@@ -5,7 +5,8 @@ const stateModule = (function() {
         USER_AGREEMENT: "userAgreement",
         AWAITING_CHATBOT_RESPONSE: "awaitingChatbotResponse",
         CHATBOT_RESPONDING: "chatbotResponding",
-        IDLE: "idle"
+        IDLE: "idle",
+        ERROR: "error"
     };
 
     let idleTimeout;
@@ -81,6 +82,17 @@ const stateModule = (function() {
             enter() {
                 console.log(`Entering ${this.name} state`);
                 stateMachineModule.changeState(stateIDs.CLOSED);
+            },
+            exit() {
+                console.log(`Exiting ${this.name} state`);
+            },
+            transitions: [stateIDs.CLOSED]
+        },
+        [stateIDs.ERROR]: {
+            name: "Error",
+            enter() {
+                console.log(`Entering ${this.name} state`);
+                stateMachineModule.changeState(stateIDs.OPEN);
             },
             exit() {
                 console.log(`Exiting ${this.name} state`);
