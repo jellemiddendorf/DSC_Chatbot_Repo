@@ -181,13 +181,6 @@ const ChatbotModule = (function() {
         return chatLi;
     }
 
-    // Fetches weather data from the API
-    async function fetchWeather2(query) {
-        const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=f2e9be0466ad4d56b76103541242204&q=${query}`);
-        const data = await response.json();
-        return `The current temperature in ${data.location.name} is ${data.current.temp_c}°C.`;
-    }
-
     function getChatbotToggler() {
         return chatbotToggler;
     }
