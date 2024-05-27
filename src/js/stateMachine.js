@@ -48,6 +48,3 @@ const stateMachineModule = (function() {
         init
     };
 })();
-
-// Export the stateMachine object
-//window.stateMachine = stateMachine;
