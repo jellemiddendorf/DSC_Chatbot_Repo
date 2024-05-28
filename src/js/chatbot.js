@@ -132,7 +132,6 @@ const ChatbotModule = (function() {
         .finally(() => chatbox.scrollTo(0, chatbox.scrollHeight));
     }
 
-
     // Displays chatbot response in the chatbox
     function displayResponse(responseMessage) {
         const incomingChatLi = createChatLi(responseMessage, "incoming");
