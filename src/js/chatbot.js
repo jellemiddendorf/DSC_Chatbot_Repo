@@ -113,7 +113,19 @@ const ChatbotModule = (function() {
         })
         .catch(error => {
             console.error("Error fetching data:", error); // Log any errors
-            placeholderMessageLi.textContent = "Oeps! Er is iets fout gegaan. Probeer het opnieuw.";
+
+            let messageParagraph = placeholderMessageLi.querySelector("p");
+            if (!messageParagraph) {
+                // If I make a mistake in the future that removes the <p> tag, this will create a new one
+                messageParagraph = document.createElement("p");
+                placeholderMessageLi.appendChild(messageParagraph);
+            }
+            messageParagraph.textContent = "Oeps! Er is iets fout gegaan. Probeer het opnieuw.";
+            messageParagraph.classList.add("error");
+
+            chatbox.appendChild(placeholderMessageLi);
+            chatbox.scrollTo(0, chatbox.scrollHeight);
+
             // Transition to the error state
             changeState(stateIDs.ERROR);
         })
