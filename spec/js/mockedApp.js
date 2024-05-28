@@ -63,7 +63,7 @@ const stateMachineModule = (function() {
     let states = stateModule.states;
 
     function changeState(newStateID) {
-        if (states[currentState] && states[currentState].transitions.includes(newStateID)) {
+        if (states[currentState] && states[currentState].transitions.includes(newStateID)) { 
             // Log transition
             console.log(`Transition from ${currentState} to ${newStateID} is ${states[currentState].transitions.includes(newStateID) ? 'allowed' : 'not allowed'}.`);
 
