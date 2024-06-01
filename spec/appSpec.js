@@ -62,14 +62,6 @@ describe("State Machine Module", function() {
         stateMachineModule.changeState(stateIDs.OPEN);
         expect(stateMachineModule.getCurrentState()).toBe(stateIDs.IDLE);
     });
-
-    // it("should log an error for invalid transition", () => {
-    //     const consoleSpy = jest.spyOn(console, 'log');
-    //     stateMachineModule.changeState(stateIDs.OPEN);
-    //     errorMsg = stateMachineModule.changeState(stateIDs.CHATBOT_RESPONDING);
-    //     expect(consoleSpy).toHaveBeenCalledWith(`Invalid transition attempted from ${stateIDs.OPEN} to ${stateIDs.CHATBOT_RESPONDING}.`);
-    //     consoleSpy.mockRestore();
-    // });
 });
 
 describe("Header Loader Module", function() {

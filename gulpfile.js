@@ -23,7 +23,7 @@ function styles() {
     .pipe(gulp.dest('dist/css')) // Outputs the CSS to dist/css
 }
 
-// Copy HTML files from source to distribution folder
+// Copy HTML files from source to dist
 function html() {
   return gulp.src('src/**/*.html')
     .pipe(gulp.dest('dist'));
