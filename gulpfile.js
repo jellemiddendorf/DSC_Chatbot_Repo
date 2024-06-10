@@ -24,7 +24,11 @@ function test() {
         ], { base: './' }))
         .pipe(concat('testBundle.js'))
         .pipe(gulp.dest('spec/test/'))
-        .pipe(jasmine());                // Run Jasmine tests
+        .pipe(jasmine())                 // Run Jasmine tests
+        .on('error', function() {
+            console.error(err);
+            process.exit(1);
+        });
 }
 
 // Run Jasmine Unit Tests
