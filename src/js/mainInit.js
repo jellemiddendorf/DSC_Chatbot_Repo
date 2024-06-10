@@ -5,4 +5,9 @@ document.addEventListener("DOMContentLoaded", function() {
     headerLoader.init();
 
     console.log("All modules initialized after DOM loaded.");
+
+    //console.log = function() {};
+    //console.info = function() {};
+    //console.warn = function() {};
+    //console.error = function() {};
 });
