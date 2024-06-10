@@ -7,8 +7,31 @@ const rename = require('gulp-rename');
 const sourcemaps = require('gulp-sourcemaps');
 const concat = require('gulp-concat');
 const order = require('gulp-order');
+const jasmine = require('gulp-jasmine');
 
 const eslint = require('gulp-eslint');
+
+// Concatenate JS in test bundle and run tests
+function test() {
+  return gulp.src(['spec/testSetup.js', 'src/js/states.js', 'src/js/stateMachine.js', 'src/js/chatbot.js', 'spec/*.js'])
+        .pipe(sourcemaps.init())
+        .pipe(order([
+            'spec/testSetup.js',         // Setup file
+            'src/js/states.js',          // Base module
+            'src/js/stateMachine.js',    // Depends on states.js
+            'src/js/*.js',               // Other JS files
+            'spec/*Spec.js'              // Spec files last to ensure dependencies are loaded first
+        ], { base: './' }))
+        .pipe(concat('testBundle.js'))
+        .pipe(gulp.dest('spec/test/'))
+        .pipe(jasmine());                // Run Jasmine tests
+}
+
+// Run Jasmine Unit Tests
+function runTests() {
+  return gulp.src('spec/**/*[sS]pec.js')
+      .pipe(jasmine());
+}
 
 // Process, prefix, and minify CSS files
 function styles() {
@@ -68,3 +91,4 @@ function watch() {
 // Define tasks
 exports.build = gulp.series(lint, html, styles, js);
 exports.default = gulp.series(gulp.parallel(lint, html, styles, js), watch);
+exports.test = test;

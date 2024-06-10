@@ -7,7 +7,7 @@ const stateModule = (function() {
         CHATBOT_RESPONDING: "chatbotResponding",
         IDLE: "idle"
     };
-
+// testlol
     const states = {
         [stateIDs.CLOSED]: {
             name: "Closed",

@@ -6,6 +6,11 @@ const stateMachineModule = (function() {
         console.log(`=========================================`);
         console.log(`Attempting to change state from ${currentState} to ${newStateID}`);
 
+        if (currentState === newStateID) {
+            console.log(`State is already ${currentState}. No change needed.`);
+            return currentState;
+        }
+
         // Validate if the state transition is allowed
         if (states[currentState] && states[currentState].transitions.includes(newStateID)) {
             console.log(`State change from ${currentState} to ${newStateID} is allowed.`);
@@ -36,10 +41,12 @@ const stateMachineModule = (function() {
 
     // Initializes the state machine
     function init() {
+        currentState = stateModule.stateIDs.CLOSED;
+
         if (states[currentState] && states[currentState].enter) {
             states[currentState].enter();
         }
-        console.log(`State machine initialized.`);
+        console.log(`State machine initialized: '${currentState}'`);
     }
 
     return {

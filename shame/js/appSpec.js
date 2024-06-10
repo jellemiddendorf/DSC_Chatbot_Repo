@@ -1,4 +1,4 @@
-const { stateModule, stateMachineModule, headerLoader, ChatbotModule } = require('./js/mockedApp');
+//const { stateModule, stateMachineModule, headerLoader, ChatbotModule } = require('./js/mockedApp');
 
 describe("State Machine Module", function() {
     const stateIDs = stateModule.stateIDs;

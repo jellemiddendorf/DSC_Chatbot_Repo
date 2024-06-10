@@ -29,6 +29,10 @@ jobs:
       - name: npm install, build
         run: |
           npm install
+
+      - name: Run Gulp test
+        run: |
+          gulp test
           
       - name: Run Gulp build
         run: |
