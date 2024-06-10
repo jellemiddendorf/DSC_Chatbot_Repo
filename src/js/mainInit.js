@@ -6,8 +6,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     console.log("All modules initialized after DOM loaded.");
 
-    //console.log = function() {};
-    //console.info = function() {};
-    //console.warn = function() {};
-    //console.error = function() {};
+    console.log = function() {};
+    console.info = function() {};
+    console.warn = function() {};
+    console.error = function() {};
 });
