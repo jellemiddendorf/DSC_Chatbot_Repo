@@ -1,4 +1,5 @@
 const gulp = require('gulp');
+const gulpif = require('gulp-if');
 const babel = require('gulp-babel');
 const sass = require('gulp-sass')(require('sass'));
 const cleanCSS = require('gulp-clean-css');
@@ -31,11 +32,11 @@ function test() {
         });
 }
 
-// Run Jasmine Unit Tests
-function runTests() {
-  return gulp.src('spec/**/*[sS]pec.js')
-      .pipe(jasmine());
-}
+// // Run Jasmine Unit Tests
+// function runTests() {
+//   return gulp.src('spec/**/*[sS]pec.js')
+//       .pipe(jasmine());
+// }
 
 // Process, prefix, and minify CSS files
 function styles() {
@@ -68,7 +69,7 @@ function lint() {
 // Process, transpile, and minify JavaScript files
 function js() {
     return gulp.src('src/js/**/*.js') // Gets all files ending with .js in src/js and children dirs
-        .pipe(sourcemaps.init())
+        .pipe(gulpif(process.env.NODE_ENV === 'development', sourcemaps.init()))//.pipe(sourcemaps.init())
         .pipe(order([
           'src/js/chatbotTest.js',    // defines 'html elements'
           'src/js/states.js',         // defines 'stateIDs'
@@ -81,7 +82,7 @@ function js() {
         .pipe(concat('app.js'))
         .pipe(uglify())
         .pipe(rename({ suffix: '.min' }))
-        .pipe(sourcemaps.write('./'))
+        .pipe(gulpif(process.env.NODE_ENV === 'development', sourcemaps.write('./')))//.pipe(sourcemaps.write('./'))
         .pipe(gulp.dest('dist/js'));
 }
 
