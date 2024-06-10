@@ -32,22 +32,16 @@ function test() {
         });
 }
 
-// // Run Jasmine Unit Tests
-// function runTests() {
-//   return gulp.src('spec/**/*[sS]pec.js')
-//       .pipe(jasmine());
-// }
-
 // Process, prefix, and minify CSS files
 function styles() {
   return gulp.src('src/scss/**/*.scss') // Gets all files ending with .scss in src/scss and children dirs
-    .pipe(gulpif(process.env.NODE_ENV === 'development', sourcemaps.init()))//.pipe(sourcemaps.init())
+    .pipe(gulpif(process.env.NODE_ENV === 'development', sourcemaps.init()))
     .pipe(sass().on('error', sass.logError)) // Converts Sass to CSS with gulp-sass
     .pipe(cleanCSS()) // Minifies the CSS
     .pipe(rename({
       suffix: '.min'
     }))
-    .pipe(gulpif(process.env.NODE_ENV === 'development', sourcemaps.write('./')))//.pipe(sourcemaps.write('./'))
+    .pipe(gulpif(process.env.NODE_ENV === 'development', sourcemaps.write('./')))
     .pipe(gulp.dest('dist/css')) // Outputs the CSS to dist/css
 }
 
@@ -69,7 +63,7 @@ function lint() {
 // Process, transpile, and minify JavaScript files
 function js() {
     return gulp.src('src/js/**/*.js') // Gets all files ending with .js in src/js and children dirs
-        .pipe(gulpif(process.env.NODE_ENV === 'development', sourcemaps.init()))//.pipe(sourcemaps.init())
+        .pipe(gulpif(process.env.NODE_ENV === 'development', sourcemaps.init()))
         .pipe(order([
           'src/js/chatbotTest.js',    // defines 'html elements'
           'src/js/states.js',         // defines 'stateIDs'
@@ -82,7 +76,7 @@ function js() {
         .pipe(concat('app.js'))
         .pipe(uglify())
         .pipe(rename({ suffix: '.min' }))
-        .pipe(gulpif(process.env.NODE_ENV === 'development', sourcemaps.write('./')))//.pipe(sourcemaps.write('./'))
+        .pipe(gulpif(process.env.NODE_ENV === 'development', sourcemaps.write('./')))
         .pipe(gulp.dest('dist/js'));
 }
 
