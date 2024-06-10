@@ -41,13 +41,13 @@ function test() {
 // Process, prefix, and minify CSS files
 function styles() {
   return gulp.src('src/scss/**/*.scss') // Gets all files ending with .scss in src/scss and children dirs
-    .pipe(sourcemaps.init())
+    .pipe(gulpif(process.env.NODE_ENV === 'development', sourcemaps.init()))//.pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError)) // Converts Sass to CSS with gulp-sass
     .pipe(cleanCSS()) // Minifies the CSS
     .pipe(rename({
       suffix: '.min'
     }))
-    .pipe(sourcemaps.write('./'))
+    .pipe(gulpif(process.env.NODE_ENV === 'development', sourcemaps.write('./')))//.pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('dist/css')) // Outputs the CSS to dist/css
 }
 
