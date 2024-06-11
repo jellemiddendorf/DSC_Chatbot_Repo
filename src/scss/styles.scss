@@ -70,7 +70,7 @@ body.show-chatbot .chatbot-toggler span:last-child {
   position: fixed;
   right: 35px;
   bottom: 90px;
-  width: 379px; // 420px
+  width: 379px;
   background: $white;
   border-radius: 15px;
   overflow: hidden;
@@ -96,12 +96,30 @@ body.show-chatbot .chatbot {
   background: $secondary-color;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
-.chatbot header span {
+.chatbot header span { // Contains top left chat icon
   position: absolute;
   left: 15px;
   top: 50%; 
   cursor: pointer;
   transform: translateY(-50%);
+  color: $negative-text-color;
+
+  &:hover {
+    
+  }
+}
+.chatbot header .material-symbols-rounded { // Hidden top left chat icon
+  opacity: 0;
+  transition: opacity 0.5s ease;
+
+  &:hover { // Show on hover
+    opacity: 1;
+  }
+}
+.chatbot header .question_mark_icon { // Top left chat icon question mark
+  font-size: 14px !important;
+  margin-left: 5px;
+  bottom: 9px;
 }
 header h7 {
   font-size: 1.4rem;
@@ -132,6 +150,15 @@ header h7 {
 .chatbox .outgoing {
   margin: 20px 0;
   justify-content: flex-end;
+}
+// Chat Outgoing Link Styles
+.chatbox .outgoing a {
+  color: $additional-color-5;
+  word-wrap: break-word;
+
+  &:hover {
+    color: $negative-text-color;
+  }
 }
 .chatbox .incoming span {
   width: 32px;
@@ -164,6 +191,26 @@ header h7 {
 .chatbox .incoming p {
   color: $text-color;
   background: $additional-color-5;
+}
+// Chat Incoming Link Styles
+.chatbox .incoming a {
+  color: $primary-color;
+  word-wrap: break-word;
+
+  &:hover {
+    color: $secondary-color;
+  }
+}
+// Chat Copy Icon Styles, for incoming and outgoing messages
+.copy-icon { 
+  margin-left: 2px;
+  font-size: 14px !important;
+  cursor: pointer;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: $secondary-color;
+  }
 }
 
 // Chat Input Styles

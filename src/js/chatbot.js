@@ -187,9 +187,35 @@ const ChatbotModule = (function() {
     function createChatLi(messageContent, className) {
         const chatLi = document.createElement("li");
         chatLi.classList.add("chat", className);
-        let chatContent = className === "outgoing" ? `<p>${messageContent}</p>` : `<span class="zehnder-letter">Z</span><p>${messageContent}</p>`;
-        chatLi.innerHTML = chatContent;
+        const messageText = document.createElement("p");
+
+        messageText.innerHTML = linkify(messageContent); // Convert URLs in messageContent into clickable links
+
+        if (className !== "outgoing") { // Add the Zehnder 'Z' letter for incoming messages
+            const zehnderLetter = document.createElement("span");
+            zehnderLetter.classList.add("zehnder-letter");
+            zehnderLetter.textContent = "Z";
+            chatLi.appendChild(zehnderLetter);
+        }
+
+        const copyIcon = document.createElement("i"); // Create the copy icon
+        copyIcon.classList.add("material-symbols-rounded", "copy-icon");
+        copyIcon.textContent = "content_copy";
+        copyIcon.onclick = () => {
+            navigator.clipboard.writeText(messageContent);
+        };
+
+        messageText.appendChild(copyIcon); // Add copy icon
+        chatLi.appendChild(messageText); // Add message text
         return chatLi;
+    }
+
+    // Returns linkified version of the input text
+    function linkify(inputText) {
+        const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#/%?=~_|!:,.;]*[-A-Z0-9+&@#/%=~_|])/ig;
+        return inputText.replace(urlRegex, function(url) {
+            return "<a href=\"" + url + "\" target=\"_blank\">" + url + "</a>";
+        });
     }
 
     function getChatbotToggler() {
