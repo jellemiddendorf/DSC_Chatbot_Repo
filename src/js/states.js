@@ -64,7 +64,7 @@ const stateModule = (function() {
             exit() {
                 console.log(`Exiting ${this.name} state`);
             },
-            transitions: [stateIDs.CHATBOT_RESPONDING]
+            transitions: [stateIDs.CHATBOT_RESPONDING, stateIDs.ERROR]
         },
         [stateIDs.CHATBOT_RESPONDING]: {
             name: "Chatbot Responding",
@@ -75,7 +75,7 @@ const stateModule = (function() {
             exit() {
                 console.log(`Exiting ${this.name} state`);
             },
-            transitions: [stateIDs.OPEN]
+            transitions: [stateIDs.OPEN, stateIDs.ERROR]
         },
         [stateIDs.IDLE]: {
             name: "Idle",
@@ -97,7 +97,7 @@ const stateModule = (function() {
             exit() {
                 console.log(`Exiting ${this.name} state`);
             },
-            transitions: [stateIDs.CLOSED]
+            transitions: [stateIDs.CLOSED, stateIDs.OPEN]
         }
     };
 
