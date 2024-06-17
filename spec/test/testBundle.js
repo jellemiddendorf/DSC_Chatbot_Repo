@@ -93,7 +93,7 @@ global.HTMLInputElement = window.HTMLInputElement;
 global.MouseEvent = window.MouseEvent;
 
 // Enable Fetch API support
-global.fetch = require('node-fetch');
+// global.fetch = require('node-fetch');
 
 // Mock local storage and session storage
 global.localStorage = window.localStorage;
@@ -178,7 +178,7 @@ const stateModule = (function() {
             exit() {
                 console.log(`Exiting ${this.name} state`);
             },
-            transitions: [stateIDs.CHATBOT_RESPONDING]
+            transitions: [stateIDs.CHATBOT_RESPONDING, stateIDs.ERROR]
         },
         [stateIDs.CHATBOT_RESPONDING]: {
             name: "Chatbot Responding",
@@ -211,7 +211,7 @@ const stateModule = (function() {
             exit() {
                 console.log(`Exiting ${this.name} state`);
             },
-            transitions: [stateIDs.CLOSED]
+            transitions: [stateIDs.OPEN]
         }
     };
 
@@ -553,9 +553,35 @@ const ChatbotModule = (function() {
     function createChatLi(messageContent, className) {
         const chatLi = document.createElement("li");
         chatLi.classList.add("chat", className);
-        let chatContent = className === "outgoing" ? `<p>${messageContent}</p>` : `<span class="zehnder-letter">Z</span><p>${messageContent}</p>`;
-        chatLi.innerHTML = chatContent;
+        const messageText = document.createElement("p");
+
+        messageText.innerHTML = linkify(messageContent); // Convert URLs in messageContent into clickable links
+
+        if (className !== "outgoing") { // Add the Zehnder 'Z' letter for incoming messages
+            const zehnderLetter = document.createElement("span");
+            zehnderLetter.classList.add("zehnder-letter");
+            zehnderLetter.textContent = "Z";
+            chatLi.appendChild(zehnderLetter);
+        }
+
+        const copyIcon = document.createElement("i"); // Create the copy icon
+        copyIcon.classList.add("material-symbols-rounded", "copy-icon");
+        copyIcon.textContent = "content_copy";
+        copyIcon.onclick = () => {
+            navigator.clipboard.writeText(messageContent);
+        };
+
+        messageText.appendChild(copyIcon); // Add copy icon
+        chatLi.appendChild(messageText); // Add message text
         return chatLi;
+    }
+
+    // Returns linkified version of the input text
+    function linkify(inputText) {
+        const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#/%?=~_|!:,.;]*[-A-Z0-9+&@#/%=~_|])/ig;
+        return inputText.replace(urlRegex, function(url) {
+            return "<a href=\"" + url + "\" target=\"_blank\">" + url + "</a>";
+        });
     }
 
     function getChatbotToggler() {
@@ -703,6 +729,17 @@ describe("stateMachineModule/", function() {
                 var result = stateMachineModule.changeState("chatbotResponding");
                 expect(result).toBe("open");
             });
+
+            it("should transition from Awaiting Chatbot Response to Error to OPEN", function() {
+                var result = stateMachineModule.getCurrentState();
+                expect(result).toBe("closed");
+                var result = stateMachineModule.changeState("open");
+                expect(result).toBe("open");
+                var result = stateMachineModule.changeState("awaitingChatbotResponse");
+                expect(result).toBe("awaitingChatbotResponse");
+                var result = stateMachineModule.changeState("error");
+                expect(result).toBe("open");
+            });
         });
 
         describe("Chatbot Responding/", function() { // CHATBOT_RESPONDING
@@ -741,7 +778,7 @@ describe("stateMachineModule/", function() {
         });
     });
 
-    describe("Valid Transitions", function() { // Invalid Transitions
+    describe("Invalid Transitions", function() { // Invalid Transitions
         describe("Closed/", function() { // CLOSED
             it("should not transition from CLOSED to CLOSED", function() {
                 var result = stateMachineModule.getCurrentState();
@@ -925,17 +962,6 @@ describe("stateMachineModule/", function() {
                 var result = stateMachineModule.changeState("awaitingChatbotResponse");
                 expect(result).toBe("awaitingChatbotResponse");
                 var result = stateMachineModule.changeState("idle");
-                expect(result).toBe("awaitingChatbotResponse");
-            });
-
-            it("should not transition from AWAITING_CHATBOT_RESPONSE to ERROR", function() {
-                var result = stateMachineModule.getCurrentState();
-                expect(result).toBe("closed");
-                var result = stateMachineModule.changeState("open");
-                expect(result).toBe("open");
-                var result = stateMachineModule.changeState("awaitingChatbotResponse");
-                expect(result).toBe("awaitingChatbotResponse");
-                var result = stateMachineModule.changeState("error");
                 expect(result).toBe("awaitingChatbotResponse");
             });
         });

@@ -93,7 +93,7 @@ global.HTMLInputElement = window.HTMLInputElement;
 global.MouseEvent = window.MouseEvent;
 
 // Enable Fetch API support
-global.fetch = require('node-fetch');
+// global.fetch = require('node-fetch');
 
 // Mock local storage and session storage
 global.localStorage = window.localStorage;

@@ -128,6 +128,17 @@ describe("stateMachineModule/", function() {
                 var result = stateMachineModule.changeState("chatbotResponding");
                 expect(result).toBe("open");
             });
+
+            it("should transition from Awaiting Chatbot Response to Error to OPEN", function() {
+                var result = stateMachineModule.getCurrentState();
+                expect(result).toBe("closed");
+                var result = stateMachineModule.changeState("open");
+                expect(result).toBe("open");
+                var result = stateMachineModule.changeState("awaitingChatbotResponse");
+                expect(result).toBe("awaitingChatbotResponse");
+                var result = stateMachineModule.changeState("error");
+                expect(result).toBe("open");
+            });
         });
 
         describe("Chatbot Responding/", function() { // CHATBOT_RESPONDING
@@ -166,7 +177,7 @@ describe("stateMachineModule/", function() {
         });
     });
 
-    describe("Valid Transitions", function() { // Invalid Transitions
+    describe("Invalid Transitions", function() { // Invalid Transitions
         describe("Closed/", function() { // CLOSED
             it("should not transition from CLOSED to CLOSED", function() {
                 var result = stateMachineModule.getCurrentState();
@@ -350,17 +361,6 @@ describe("stateMachineModule/", function() {
                 var result = stateMachineModule.changeState("awaitingChatbotResponse");
                 expect(result).toBe("awaitingChatbotResponse");
                 var result = stateMachineModule.changeState("idle");
-                expect(result).toBe("awaitingChatbotResponse");
-            });
-
-            it("should not transition from AWAITING_CHATBOT_RESPONSE to ERROR", function() {
-                var result = stateMachineModule.getCurrentState();
-                expect(result).toBe("closed");
-                var result = stateMachineModule.changeState("open");
-                expect(result).toBe("open");
-                var result = stateMachineModule.changeState("awaitingChatbotResponse");
-                expect(result).toBe("awaitingChatbotResponse");
-                var result = stateMachineModule.changeState("error");
                 expect(result).toBe("awaitingChatbotResponse");
             });
         });

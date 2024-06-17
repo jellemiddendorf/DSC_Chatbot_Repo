@@ -75,7 +75,7 @@ const stateModule = (function() {
             exit() {
                 console.log(`Exiting ${this.name} state`);
             },
-            transitions: [stateIDs.OPEN, stateIDs.ERROR]
+            transitions: [stateIDs.OPEN]
         },
         [stateIDs.IDLE]: {
             name: "Idle",
@@ -97,7 +97,7 @@ const stateModule = (function() {
             exit() {
                 console.log(`Exiting ${this.name} state`);
             },
-            transitions: [stateIDs.CLOSED, stateIDs.OPEN]
+            transitions: [stateIDs.OPEN]
         }
     };
 
